@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Linq;
-using Playfab.Catalog;
 using UnityEngine;
 using UnityEngine.UI;
 using Xsolla.Core;
@@ -22,33 +20,36 @@ public class ItemUI : MonoBehaviour
 	[SerializeField]
 	SimpleTextButton buyButton;
 	
-	public void Initialize(CatalogItemEntity itemInformation)
+	public void Initialize(IItemEntity item)
 	{
 		var text = "";
 
-		if (itemInformation.GetPricesForVirtualCurrency().Any())
+		var virtualPrice = item.GetVirtualPrice();
+		if (virtualPrice != null)
 		{
-			var virtualPrice = PurchaseHelper.Instance.GetVirtualPrice(itemInformation);
-			text = FormatVirtualCurrencyBuyButtonText(virtualPrice.Key, virtualPrice.Value.ToString());
-		} else {
-			if (itemInformation.GetPriceForRealMoney() != null) {
-				var price = itemInformation.GetPriceForRealMoney()?.ToString("F2");
-				var currency = RegionalCurrency.GetCurrencySymbol("USD");
-				text = FormatBuyButtonText(currency, price);
+			var valuePair = virtualPrice.Value;
+			text = FormatVirtualCurrencyBuyButtonText(valuePair.Key, valuePair.Value.ToString());
+		} else
+		{
+			var realPrice = item.GetRealPrice();
+			if (realPrice != null) {
+				var valuePair = realPrice.Value;
+				var currency = RegionalCurrency.GetCurrencySymbol(valuePair.Key);
+				text = FormatBuyButtonText(currency, valuePair.Value.ToString("F2"));
 			}
 		}
 		buyButton.Text = text;
-		itemName.text = itemInformation.DisplayName;
-		itemDescription.text = itemInformation.Description;
-		gameObject.name = "Item_" + itemInformation.DisplayName.Replace(" ", "");
-		ImageLoader.Instance.GetImageAsync(itemInformation.ItemImageUrl, LoadImageCallback);
+		itemName.text = item.GetName();
+		itemDescription.text = item.GetDescription();
+		gameObject.name = "Item_" + item.GetName().Replace(" ", "");
+		ImageLoader.Instance.GetImageAsync(item.GetImageUrl(), LoadImageCallback);
 
-		AttachBuyButtonHandler(itemInformation);
+		AttachBuyButtonHandler(item);
 	}
 
-	private void AttachBuyButtonHandler(CatalogItemEntity item)
+	private void AttachBuyButtonHandler(IItemEntity item)
 	{
-		if (item.GetPricesForVirtualCurrency().Any()) {
+		if (item.GetVirtualPrice() != null) {
 			buyButton.onClick = () => StoreDemoPopup.ShowConfirm(() => PurchaseForVirtualCurrency(item));
 		}
 		else {
@@ -72,24 +73,23 @@ public class ItemUI : MonoBehaviour
 		return "BUY FOR" + Environment.NewLine + $"{price} {currency}";
 	}
 	
-	private void PurchaseForVirtualCurrency(CatalogItemEntity item)
+	private void PurchaseForVirtualCurrency(IItemEntity item)
 	{
 		PurchaseHelper.Instance.PurchasePlayfabItemForVirtualCurrency(item, purchasedItem =>
 		{
-			StartCoroutine(VirtualCurrencyPurchaseFinished(
-				item.IsVirtualCurrency() ? PLAYFAB_VIRTUAL_CURRENCY_ACCRUAL_TIMEOUT : 0.0F
-				));
+			StartCoroutine(VirtualCurrencyPurchaseFinished(purchasedItem));
 			StoreDemoPopup.ShowSuccess($"You are purchased `{purchasedItem}`!");
 		}, StoreDemoPopup.ShowError);
 	}
 
-	IEnumerator VirtualCurrencyPurchaseFinished(float refreshDelay)
+	static IEnumerator VirtualCurrencyPurchaseFinished(IItemEntity item)
 	{
+		var refreshDelay = item.IsVirtualCurrency() ? PLAYFAB_VIRTUAL_CURRENCY_ACCRUAL_TIMEOUT : 0.0F;
 		yield return new WaitForSeconds(refreshDelay);
 		UserInventory.Instance.Refresh();
 	}
 
-	private void PurchaseForRealMoney(CatalogItemEntity item)
+	private void PurchaseForRealMoney(IItemEntity item)
 	{
 		PurchaseHelper.Instance.PurchasePlayfabItemForRealMoney(item, _ =>
 		{

@@ -1,33 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Xsolla.Core;
-using Xsolla.Store;
 
 public class GroupsController : MonoBehaviour
 {
-	[SerializeField]
-	GameObject groupPrefab;
-
-	[SerializeField]
-	RectTransform scrollView;
-
-	List<IGroup> _groups;
+	public event Action<string> GroupSelectedEvent;
 	
-	ItemsController _itemsController;
-	ItemsTabControl _itemsTabControl;
-	
-	void Awake()
-	{
-		_groups = new List<IGroup>();
+	[SerializeField] private GameObject groupPrefab;
+	[SerializeField] private RectTransform scrollView;
 
-		_itemsController = FindObjectOfType<ItemsController>();
-		_itemsTabControl = FindObjectOfType<ItemsTabControl>();
-	}
+	private readonly List<IGroup> _groups = new List<IGroup>();
 
 	private void Start()
 	{
-		GroupsHotKeys hotKeys = gameObject.GetComponent<GroupsHotKeys>();
+		var hotKeys = gameObject.AddComponent<GroupsHotKeys>();
 		hotKeys.ArrowDownKeyPressedEvent += () => {
 			IGroup group = GetSelectedGroup();
 			int index = _groups.IndexOf(group) + 1;
@@ -51,16 +38,11 @@ public class GroupsController : MonoBehaviour
 		};
 	}
 
-	public void CreateGroups()
-	{
-		ItemGroupsHelper.GetAllAsNames().ForEach(groupName => AddGroup(groupPrefab, groupName));
-	}
-
-	void AddGroup(GameObject groupPref, string groupName)
+	public void AddGroup(string groupName)
 	{
 		if (_groups.Exists(group => group.Name == groupName))
 			return;
-		var newGroupGameObject = Instantiate(groupPref, scrollView.transform);
+		var newGroupGameObject = Instantiate(groupPrefab, scrollView.transform);
 		newGroupGameObject.name = 
 			"Group_" +
 			groupName.ToUpper().First() + 
@@ -74,16 +56,10 @@ public class GroupsController : MonoBehaviour
 		_groups.Add(newGroup);
 	}
 	
-	private void SelectGroup(string id)
-	{
-		_itemsController.ActivateContainer(id);
-		ChangeSelection(id);
-		_itemsTabControl.ActivateStoreTab();
-	}
-	
-	void ChangeSelection(string groupId)
+	private void SelectGroup(string groupId)
 	{
 		_groups.Where(g => g.Id != groupId).ToList().ForEach(g => g.Deselect());
+		GroupSelectedEvent?.Invoke(groupId);
 	}
 
 	public void SelectDefault()

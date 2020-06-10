@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Playfab.Catalog;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,24 +13,30 @@ public class ItemContainer : MonoBehaviour, IContainer
 	[SerializeField]
 	Text emptyMessageText;
 
-	public List<ItemUI> Items { get; private set; }
+	private readonly List<ItemUI> _items = new List<ItemUI>();
 
 	private void Awake()
 	{
-		Items = new List<ItemUI>();
 		DisableEmptyContainerMessage();
 	}
 
-	public void AddItem(CatalogItemEntity itemInformation)
+	public bool IsEmpty()
+	{
+		return _items.Count == 0;
+	}
+
+	public void AddItem(IItemEntity itemInformation)
 	{
 		ItemUI item = Instantiate(itemPrefab, itemParent).GetComponent<ItemUI>();
 		item.Initialize(itemInformation);
-		Items.Add(item);
+		_items.Add(item);
 	}
 	
-	public void EnableEmptyContainerMessage()
+	public void EnableEmptyContainerMessage(string text = null)
 	{
 		emptyMessageText.gameObject.SetActive(true);
+		if (!string.IsNullOrEmpty(text))
+			emptyMessageText.text = text;
 	}
 
 	private void DisableEmptyContainerMessage()

@@ -22,7 +22,7 @@ public class InventoryItemUI : MonoBehaviour
 	[SerializeField] private ConsumeButton consumeButton;
 	
 	private InventoryItem _itemInformation;
-	private CatalogItemEntity _catalogItem;
+	private IItemEntity _catalogItem;
 
 	private void Awake()
 	{
@@ -50,9 +50,9 @@ public class InventoryItemUI : MonoBehaviour
 			itemQuantityText.text = _itemInformation.RemainingUses.Value.ToString();
 
 		if (_catalogItem == null) return;
-		itemDescription.text = _catalogItem.Description;
-		if(!string.IsNullOrEmpty(_catalogItem.ItemImageUrl))
-			ImageLoader.Instance.GetImageAsync(_catalogItem.ItemImageUrl, LoadImageCallback);
+		itemDescription.text = _catalogItem.GetDescription();
+		if(!string.IsNullOrEmpty(_catalogItem.GetImageUrl()))
+			ImageLoader.Instance.GetImageAsync(_catalogItem.GetImageUrl(), LoadImageCallback);
 		else
 		{
 			loadingCircle.SetActive(false);

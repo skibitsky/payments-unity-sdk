@@ -5,7 +5,7 @@ using System.Linq;
 namespace Playfab.Catalog
 {
 	[Serializable]
-	public class CatalogItemEntity
+	public class CatalogItemEntity : IItemEntity
 	{
 		public const string REAL_MONEY_CURRENCY = "RM";
 		
@@ -39,45 +39,31 @@ namespace Playfab.Catalog
 		public Dictionary<string, uint> VirtualCurrencyPrices;
 		public ConsumableOptions Consumable;
 		public BundleSettings Bundle;
-
-		public bool IsConsumable()
-		{
-			return Consumable?.UsageCount != null;
-		}
-
-		public bool IsDurable()
-		{
-			return !IsConsumable();
-		}
 		
-		public bool IsVirtualCurrency()
+		string IItemEntity.GetSku() => ItemId;
+		string IItemEntity.GetName() => DisplayName;
+		string IItemEntity.GetDescription() => Description;
+		string IItemEntity.GetImageUrl() => ItemImageUrl;
+		
+		bool IItemEntity.IsVirtualCurrency() => Bundle?.BundledVirtualCurrencies != null;
+		bool IItemEntity.IsConsumable() => Consumable?.UsageCount != null;
+		
+		KeyValuePair<string, uint>? IItemEntity.GetVirtualPrice()
 		{
-			return Bundle?.BundledVirtualCurrencies != null;
+			var prices = VirtualCurrencyPrices.Where(pair => !pair.Key.Equals(REAL_MONEY_CURRENCY)).ToList();
+			if (!prices.Any()) return null;
+			return prices.Any() ? prices.First() : (KeyValuePair<string, uint>?) null;
 		}
 
-		public string GetVirtualCurrencySku() => IsVirtualCurrency()
+		KeyValuePair<string, float>? IItemEntity.GetRealPrice()
+		{
+			if (!VirtualCurrencyPrices.ContainsKey(REAL_MONEY_CURRENCY)) return null;
+			float amount = VirtualCurrencyPrices[REAL_MONEY_CURRENCY] / 100.0F;
+			return new KeyValuePair<string, float>("USD", amount);
+		}
+
+		public string GetVirtualCurrencySku() => (this as IItemEntity).IsVirtualCurrency()
 			? Bundle.BundledVirtualCurrencies.First().Key
 			: string.Empty;
-
-		public uint GetVirtualCurrencyAmount(string currency = "")
-		{
-			return IsVirtualCurrency() ? 
-				(string.IsNullOrEmpty(currency) 
-					? Bundle.BundledVirtualCurrencies.First().Value 
-					: Bundle.BundledVirtualCurrencies[currency]) 
-				: 0;
-		}
-
-		public float? GetPriceForRealMoney()
-		{
-			return VirtualCurrencyPrices.ContainsKey(REAL_MONEY_CURRENCY) 
-				? VirtualCurrencyPrices[REAL_MONEY_CURRENCY] / 100.0F
-				: (float?) null;
-		}
-
-		public IEnumerable<KeyValuePair<string, uint>> GetPricesForVirtualCurrency()
-		{
-			return VirtualCurrencyPrices.Where(pair => !pair.Key.Equals(REAL_MONEY_CURRENCY));
-		}
 	}
 }

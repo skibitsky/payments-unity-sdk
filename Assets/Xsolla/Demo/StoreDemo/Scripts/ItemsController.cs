@@ -18,26 +18,34 @@ public class ItemsController : MonoBehaviour
 
 	private readonly Dictionary<string, GameObject> _containers = new Dictionary<string, GameObject>();
 	private bool _isEmptyCatalog;
-	
-	public void CreateItems(List<CatalogItemEntity> items)
+
+	private void Awake()
 	{
 		var defaultContainers = GetDefaultContainers();
 		defaultContainers.ToList().ForEach(container => {
 			AddContainer(container.Value, container.Key);
 		});
-		_isEmptyCatalog = !items.Any();
-		if (_isEmptyCatalog) {
-			ActivateContainer(Constants.EmptyContainerName);
-		} else {
-			items.ForEach(i => { ItemGroupsHelper.GetNamesBy(i).ForEach(group => AddItemToContainer(group, i)); });
-		}
+		_isEmptyCatalog = true;
+		ActivateContainer(Constants.EmptyContainerName);
 	}
 
-	private void AddItemToContainer(string containerName, CatalogItemEntity item)
+	public void CreateItems(List<CatalogItemEntity> items)
 	{
-		GameObject container = _containers.ContainsKey(containerName)
+		items.ForEach(i =>
+		{
+			ItemGroupsHelper.GetNamesBy(i).ForEach(group => AddItemToContainer(group, i));
+		});
+	}
+
+	public void AddItemToContainer(string containerName, IItemEntity item)
+	{
+		var container = _containers.ContainsKey(containerName)
 			? _containers[containerName]
 			: AddContainer(itemsContainerPrefab, containerName);
+		if (_isEmptyCatalog) {
+			_isEmptyCatalog = false;
+			ActivateContainer(containerName);
+		}
 		container.GetComponent<ItemContainer>().AddItem(item);
 	}
 
@@ -86,7 +94,7 @@ public class ItemsController : MonoBehaviour
 	private void CheckForEmptyCatalogMessage(GameObject activeContainer)
 	{
 		ItemContainer itemContainer = activeContainer.GetComponent<ItemContainer>();
-		if (_isEmptyCatalog && (itemContainer != null) && (itemContainer.Items.Count == 0)) {
+		if (_isEmptyCatalog && (itemContainer != null) && itemContainer.IsEmpty()) {
 			itemContainer.EnableEmptyContainerMessage();
 		}
 	}

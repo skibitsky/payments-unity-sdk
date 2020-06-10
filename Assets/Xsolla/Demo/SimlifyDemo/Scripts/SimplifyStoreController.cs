@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using Playfab;
-using Playfab.Catalog;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Xsolla.Core;
 using Xsolla.Store;
 
-public class StoreController : MonoBehaviour
-{	
+public class SimplifyStoreController : MonoBehaviour
+{
+	private const string ITEMS_GROUP = "ITEMS";
+	private const string CURRENCY_GROUP = "CURRENCY";
+	
 	GroupsController _groupsController;
 	ItemsController _itemsController;
 	IExtraPanelController _extraController;
@@ -21,12 +21,7 @@ public class StoreController : MonoBehaviour
 		if(UserInventory.IsExist)
 			Destroy(UserInventory.Instance.gameObject);
 	}
-
-	private void Awake()
-	{
-		CheckAuth();
-	}
-
+	
 	private void Start()
 	{
 		_groupsController = FindObjectOfType<GroupsController>();
@@ -36,45 +31,34 @@ public class StoreController : MonoBehaviour
 
 		CatalogInit();
 	}
-	
-	private void CheckAuth()
-	{
-		var playfabToken = PlayfabApi.Instance.Token;
-		if (playfabToken.IsNullOrEmpty()) {
-			Debug.Log("Store demo started without token. Login scene will be launched.");
-			SceneManager.LoadScene("Login");
-			return;
-		}
-		Debug.Log($"Store demo started with token {playfabToken}");
-	}
 
 	private void CatalogInit()
 	{
-		_groupsController.GroupSelectedEvent += groupId =>
+		_groupsController.AddGroup(ITEMS_GROUP);
+		_groupsController.AddGroup(CURRENCY_GROUP);
+		
+		SimplifyUserCatalog.Instance.UpdateItemsEvent += list =>
 		{
-			_itemsController.ActivateContainer(groupId);
-			_itemsTabControl.ActivateStoreTab();
+			list.ForEach(i => _itemsController.AddItemToContainer(ITEMS_GROUP, i.ToCatalogItemEntity()));
 		};
-		UserCatalog.Instance.UpdateItems(InitStoreUi, StoreDemoPopup.ShowError);
+		SimplifyUserCatalog.Instance.UpdateCatalog(InitStoreUi, StoreDemoPopup.ShowError);
 	}
 	
-	private void RefreshInventory()
-	{
-		UserInventory.Instance.Refresh(StoreDemoPopup.ShowError);
-	}
-
-	private void InitStoreUi(List<CatalogItemEntity> items)
+	private void InitStoreUi(List<SimplifyCatalogItem> items)
 	{	// This line for fastest image loading
 		items.ForEach(i => ImageLoader.Instance.GetImageAsync(i.ItemImageUrl, null));
 		
-		ItemGroupsHelper.GetAllAsNames().ForEach(groupName => _groupsController.AddGroup(groupName));
-		_itemsController.CreateItems(items);
-
+		//_itemsController.CreateItems(items);
 		_itemsTabControl.Init();
 		_extraController.Initialize();
 
 		_groupsController.SelectDefault();
 			
 		RefreshInventory();
+	}
+	
+	private void RefreshInventory()
+	{
+		UserInventory.Instance.Refresh(StoreDemoPopup.ShowError);
 	}
 }

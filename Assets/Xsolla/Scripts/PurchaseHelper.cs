@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Playfab;
-using Playfab.Catalog;
 using UnityEngine;
 using Xsolla.Core;
 
@@ -21,13 +18,13 @@ namespace Xsolla.Store
         /// <param name="onSuccess">Success operation callback.</param>
         /// <param name="onError">Failed operation callback.</param>
         public void PurchasePlayfabItemForRealMoney(
-            CatalogItemEntity item,
+            IItemEntity item,
             Action<string> onSuccess,
             Action<Error> onError)
         {
-            PlayfabApi.Purchases.ItemPurchase(item.ItemId, response => {
+            PlayfabApi.Purchases.ItemPurchase(item.GetSku(), response => {
                 OpenPurchaseUi(response.ProviderToken);
-                ProcessOrder(response.OrderId, () => onSuccess?.Invoke(item.ItemId));
+                ProcessOrder(response.OrderId, () => onSuccess?.Invoke(item.GetSku()));
             }, onError);
         }
 
@@ -38,21 +35,22 @@ namespace Xsolla.Store
         /// <param name="onSuccess">Success operation callback.</param>
         /// <param name="onError">Failed operation callback.</param>
         public void PurchasePlayfabItemForVirtualCurrency(
-            CatalogItemEntity item,
-            Action<string> onSuccess,
+            IItemEntity item,
+            Action<IItemEntity> onSuccess,
             Action<Error> onError)
         {
-            var price = GetVirtualPrice(item);
-            PlayfabApi.Purchases.ItemPurchaseForVirtualCurrency(
-                item.ItemId, price.Key, price.Value,
-                () => onSuccess?.Invoke(item.DisplayName),
-                onError);
-        }
-        
-        public KeyValuePair<string, uint> GetVirtualPrice(CatalogItemEntity item)
-        {
-            IEnumerable<KeyValuePair<string, uint>> prices = item.GetPricesForVirtualCurrency();
-            return prices.First();
+            var price = item.GetVirtualPrice();
+            if (price.HasValue)
+            {
+                var pricePair = price.Value;
+                PlayfabApi.Purchases.ItemPurchaseForVirtualCurrency(
+                    item.GetSku(), pricePair.Key, pricePair.Value,
+                    () => onSuccess?.Invoke(item),
+                    onError);    
+            }
+            else {
+                Debug.LogError($"You try buy item {item.GetName()} without virtual price!");
+            }
         }
         
         /// <summary>

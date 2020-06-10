@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Playfab.Catalog;
 using Xsolla.Core;
 using static Playfab.Catalog.CatalogItemEntity;
 
@@ -30,13 +29,13 @@ namespace Xsolla.Store
             return result;
         }
 
-        public static ItemGroups GetBy(CatalogItemEntity item)
+        public static ItemGroups GetBy(IItemEntity item)
         {
             if (item.IsVirtualCurrency()) return ItemGroups.Currency;
             var result = ItemGroups.All;
             if (item.IsConsumable())
                 result |= ItemGroups.PowerUps;
-            if (item.IsDurable())
+            else
                 result |= ItemGroups.Premium;
             return result;
         }
@@ -55,7 +54,7 @@ namespace Xsolla.Store
             return result;
         }
         
-        public static List<string> GetNamesBy(CatalogItemEntity item)
+        public static List<string> GetNamesBy(IItemEntity item)
         {
             var groups = GetBy(item);
             return GetNamesBy(groups);
