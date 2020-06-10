@@ -20,7 +20,7 @@ public class SimpleButton : MonoBehaviour, ISimpleButton
 	public Action onClick;
 	private DateTime lastClick;
 
-	public float RateLimitMs { get; set; } = Constants.DefaultButtonRateLimitMs;
+	public float RateLimitMs { get; set; } = 500.0F;
 
 	void Awake()
 	{

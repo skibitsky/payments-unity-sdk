@@ -23,7 +23,7 @@ namespace Playfab.Auth
 		/// <seealso cref="SignIn"/>
 		/// <seealso cref="ResetPassword"/>
 		public void Registration(string username, string password, string email, 
-			Action<PlayfabUserRegistrationResponseEntity> onSuccess, Action<Error> onError = null
+			[NotNull] Action<PlayfabUserRegistrationResponseEntity> onSuccess, [CanBeNull] Action<Error> onError = null
 			)
 		{
 			var registrationData = new PlayfabUserRegistrationEntity(username, password, email, XsollaSettings.PlayfabTitleId);
@@ -41,7 +41,8 @@ namespace Playfab.Auth
 		/// <param name="onError">Failed operation callback.</param>
 		/// <seealso cref="Registration"/>
 		/// <seealso cref="ResetPassword"/>
-		public void SignIn(string username, string password, Action<AuthToken.Playfab> onSuccess, Action<Error> onError = null)
+		public void SignIn(string username, string password, 
+			[NotNull] Action<AuthToken.Playfab> onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var authData = new PlayfabUserAuthEntity(username, password, XsollaSettings.PlayfabTitleId);
 			var url = PlayfabApi.GetFormattedUrl(URL_USER_SIGNIN);
@@ -62,7 +63,7 @@ namespace Playfab.Auth
 		/// <param name="onError">Failed operation callback.</param>
 		/// <seealso cref="Registration"/>
 		/// <seealso cref="SignIn"/>
-		public void ResetPassword(string email, Action onSuccess, Action<Error> onError = null)
+		public void ResetPassword(string email, [NotNull] Action onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_PASSWORD_RESET);
 			var resetData = new PlayfabUserResetPasswordEntity(email, XsollaSettings.PlayfabTitleId);

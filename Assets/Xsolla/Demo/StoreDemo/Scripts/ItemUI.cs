@@ -79,7 +79,7 @@ public class ItemUI : MonoBehaviour
 			StartCoroutine(VirtualCurrencyPurchaseFinished(
 				item.IsVirtualCurrency() ? PLAYFAB_VIRTUAL_CURRENCY_ACCRUAL_TIMEOUT : 0.0F
 				));
-			StoreDemoPopup.ShowSuccess($"You are purchased `{purchasedItem}`!");
+			StoreDemoPopup.ShowSuccess($"You have purchased `{purchasedItem}`!");
 		}, StoreDemoPopup.ShowError);
 	}
 

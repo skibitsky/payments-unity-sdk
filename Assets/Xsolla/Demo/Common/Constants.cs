@@ -1,6 +1,6 @@
 ﻿namespace Xsolla.Core
 {
-	public static partial class Constants
+	public static class Constants
 	{
 		public const string DEFAULT_PLAYFAB_TITLE_ID = "2915B";
 
