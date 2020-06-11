@@ -16,7 +16,7 @@ namespace Playfab.Catalog
 		/// <see cref="https://docs.microsoft.com/ru-ru/rest/api/playfab/client/title-wide-data-management/getcatalogitems?view=playfab-rest"/>
 		/// <param name="onSuccess">Success operation callback.</param>
 		/// <param name="onError">Failed operation callback.</param>
-		public void GetCatalog([NotNull] Action<CatalogItemsEntity> onSuccess, [CanBeNull] Action<Error> onError)
+		public void GetCatalog([NotNull] Action<CatalogItemsEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_CATALOG_GET_ITEMS);
 			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };

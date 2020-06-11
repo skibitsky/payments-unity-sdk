@@ -22,7 +22,7 @@ namespace Playfab.Purchases
 		/// <param name="onError">Failed operation callback.</param>
 		/// <seealso cref="ItemPurchaseForVirtualCurrency"/>
 		/// <seealso cref="CheckOrderStatus"/>
-		public void ItemPurchase(string itemId, [CanBeNull] Action<PurchaseTransactionEntity> onSuccess, [CanBeNull] Action<Error> onError)
+		public void ItemPurchase(string itemId, [NotNull] Action<PurchaseTransactionEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			StartPurchase(itemId, result => ExecuteCloudScript(itemId, result.OrderId, script =>
 			{
@@ -50,7 +50,7 @@ namespace Playfab.Purchases
 		/// <param name="itemId">Unique identifier of the item to purchase.</param>
 		/// <param name="onSuccess">Success operation callback.</param>
 		/// <param name="onError">Failed operation callback.</param>
-		private void StartPurchase(string itemId, Action<StartPurchaseResultEntity> onSuccess, Action<Error> onError)
+		private void StartPurchase(string itemId, [NotNull] Action<StartPurchaseResultEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_START_PURCHASE);
 			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };
@@ -68,7 +68,7 @@ namespace Playfab.Purchases
 		/// <param name="orderId">Purchase order identifier.</param>
 		/// <param name="onSuccess">Success operation callback.</param>
 		/// <param name="onError">Failed operation callback.</param>
-		private void ExecuteCloudScript(string itemId, string orderId, Action<CloudScriptResultEntity> onSuccess, Action<Error> onError)
+		private void ExecuteCloudScript(string itemId, string orderId, [NotNull] Action<CloudScriptResultEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_CLOUD_SCRIPT);
 			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };
@@ -95,12 +95,7 @@ namespace Playfab.Purchases
 		/// <param name="onError">Failed operation callback.</param>
 		/// <seealso cref="ItemPurchase"/>
 		/// <seealso cref="CheckOrderStatus"/>
-		public void ItemPurchaseForVirtualCurrency(
-			string itemId,
-			string currency,
-			uint price,
-			[CanBeNull] Action onSuccess,
-			[CanBeNull] Action<Error> onError)
+		public void ItemPurchaseForVirtualCurrency(string itemId, string currency, uint price, [NotNull] Action onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_BUY_ITEM_FOR_VC);
 			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };
@@ -121,7 +116,7 @@ namespace Playfab.Purchases
 		/// <param name="onError">Failed operation callback.</param>
 		/// <seealso cref="ItemPurchase"/>
 		/// <seealso cref="ItemPurchaseForVirtualCurrency"/>
-		public void CheckOrderStatus(string orderId, [NotNull] Action<PurchaseStatusEntity> onSuccess, [CanBeNull] Action<Error> onError)
+		public void CheckOrderStatus(string orderId, [NotNull] Action<PurchaseStatusEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_GET_PURCHASE_STATUS);
 			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };

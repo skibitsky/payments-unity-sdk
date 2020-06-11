@@ -78,7 +78,7 @@ public class ItemUI : MonoBehaviour
 		PurchaseHelper.Instance.PurchasePlayfabItemForVirtualCurrency(item, purchasedItem =>
 		{
 			StartCoroutine(VirtualCurrencyPurchaseFinished(purchasedItem));
-			StoreDemoPopup.ShowSuccess($"You are purchased `{purchasedItem}`!");
+			StoreDemoPopup.ShowSuccess($"You have purchased `{purchasedItem}`!");
 		}, StoreDemoPopup.ShowError);
 	}
 

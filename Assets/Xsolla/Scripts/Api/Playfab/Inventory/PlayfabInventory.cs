@@ -16,7 +16,7 @@ namespace Playfab.Inventory
 		/// <see cref="https://docs.microsoft.com/ru-ru/rest/api/playfab/client/player-item-management/getuserinventory?view=playfab-rest"/>
 		/// <param name="onSuccess">Success operation callback.</param>
 		/// <param name="onError">Failed operation callback.</param>
-		public void GetUserInventory([NotNull] Action<UserInventoryEntity> onSuccess, [CanBeNull] Action<Error> onError)
+		public void GetUserInventory([NotNull] Action<UserInventoryEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_INVENTORY_GET_ITEMS);
 			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };
@@ -33,11 +33,7 @@ namespace Playfab.Inventory
 		/// <param name="count">Number of uses to consume from the item.</param>
 		/// <param name="onSuccess">Success operation callback.</param>
 		/// <param name="onError">Failed operation callback.</param>
-		public void ConsumeItem(
-			string itemInstanceId,
-			uint count,
-			[CanBeNull] Action onSuccess,
-			[CanBeNull] Action<Error> onError)
+		public void ConsumeItem(string itemInstanceId, uint count, [NotNull] Action onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_INVENTORY_ITEM_CONSUME);
 			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };

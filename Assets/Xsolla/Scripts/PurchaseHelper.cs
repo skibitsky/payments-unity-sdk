@@ -17,10 +17,7 @@ namespace Xsolla.Store
         /// <param name="item">Entity of the item from the title catalog.</param>
         /// <param name="onSuccess">Success operation callback.</param>
         /// <param name="onError">Failed operation callback.</param>
-        public void PurchasePlayfabItemForRealMoney(
-            IItemEntity item,
-            Action<string> onSuccess,
-            Action<Error> onError)
+        public void PurchasePlayfabItemForRealMoney(IItemEntity item, [NotNull] Action<string> onSuccess, [CanBeNull] Action<Error> onError = null)
         {
             PlayfabApi.Purchases.ItemPurchase(item.GetSku(), response => {
                 OpenPurchaseUi(response.ProviderToken);
@@ -34,10 +31,7 @@ namespace Xsolla.Store
         /// <param name="item">Entity of the item from the title catalog.</param>
         /// <param name="onSuccess">Success operation callback.</param>
         /// <param name="onError">Failed operation callback.</param>
-        public void PurchasePlayfabItemForVirtualCurrency(
-            IItemEntity item,
-            Action<IItemEntity> onSuccess,
-            Action<Error> onError)
+        public void PurchasePlayfabItemForVirtualCurrency(IItemEntity item, [NotNull] Action<IItemEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
         {
             var price = item.GetVirtualPrice();
             if (price.HasValue)
@@ -63,10 +57,7 @@ namespace Xsolla.Store
         public void OpenPurchaseUi(string token)
         {
             var url = (XsollaSettings.IsSandbox) ? URL_PAYSTATION_UI_IN_SANDBOX_MODE : URL_PAYSTATION_UI;
-            BrowserHelper.Instance.OpenPurchase(
-                url, token,
-                XsollaSettings.IsSandbox,
-                XsollaSettings.InAppBrowserEnabled);
+            BrowserHelper.Instance.OpenPurchase(url, token, XsollaSettings.IsSandbox, XsollaSettings.InAppBrowserEnabled);
         }
         
         /// <summary>
@@ -75,14 +66,14 @@ namespace Xsolla.Store
         /// <param name="orderId">Unique identifier of created order.</param>
         /// <param name="onSuccess">Success payment callback.</param>
         /// <param name="onError">Failed operation callback.</param>
-        public void ProcessOrder(string orderId, Action onSuccess = null, Action<Error> onError = null)
+        public void ProcessOrder(string orderId, [NotNull] Action onSuccess, [CanBeNull] Action<Error> onError = null)
         {
             StartCoroutine(CheckOrderStatus(orderId, onSuccess, onError));
         }
 
-        IEnumerator CheckOrderStatus(string orderId, Action onSuccess = null, Action<Error> onError = null)
+        IEnumerator CheckOrderStatus(string orderId, [NotNull] Action onSuccess, [CanBeNull] Action<Error> onError = null)
         {
-            // Wait 3 seconds
+            // Wait 1 second before API polling
             yield return new WaitForSeconds(1.0f);
 		
             PlayfabApi.Purchases.CheckOrderStatus(orderId, status =>
