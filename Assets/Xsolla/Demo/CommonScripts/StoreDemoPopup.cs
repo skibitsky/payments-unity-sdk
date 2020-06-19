@@ -9,10 +9,10 @@ namespace Xsolla.Demo
     {
         public static void ShowSuccess(string message = "") => PopupFactory.Instance.CreateSuccess().SetMessage(message);
 
-        public static void ShowError(Error error)
+        public static IErrorPopup ShowError(Error error)
         {
             Debug.LogError(error);
-            PopupFactory.Instance.CreateError().SetMessage(error.ToString());
+            return PopupFactory.Instance.CreateError().SetMessage(error.ToString());
         }
 
         public static void ConsumeConfirmation(

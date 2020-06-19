@@ -11,8 +11,9 @@ namespace Xsolla.Core
 		public string error;
 		public uint errorCode;
 		public string errorMessage;
+		public bool IsNetworkError { get; set; }
 
-		public static Error NetworkError => new Error {status = "Network error"};
+		public static Error NetworkError => new Error {status = "Network error", IsNetworkError = true};
 
 		public static Error UnknownError => new Error {status = "Unknown error"};
 
