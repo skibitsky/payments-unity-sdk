@@ -4,34 +4,14 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using Xsolla.Core;
+using Xsolla.PayStation.Api.SimplifyIntegration;
 
 namespace Xsolla.Demo.SimplifyIntegration
 {
 	public class PurchaseHelper : MonoSingleton<PurchaseHelper>
 	{
-		private const string URL_PAYSTATION_UI_BY_ACCESS_DATA = "https://secure.xsolla.com/paystation2/?access_data=";
-
-		private const string URL_PAYSTATION_UI_IN_SANDBOX_MODE_BY_ACCESS_DATA =
-			"https://sandbox-secure.xsolla.com/paystation2/?access_data=";
-
 		private readonly List<string> _purchaseFlowComplete = new List<string>();
 		private readonly List<string> _stoppedTransactions = new List<string>();
-
-		/// <summary>
-		/// Open Paystation in the browser with retrieved Paystation Token.
-		/// </summary>
-		/// <see cref="https://developers.xsolla.com/doc/pay-station"/>
-		/// <param name="accessData">Paystation access data</param>
-		/// <seealso cref="BrowserHelper"/>
-		public void OpenPurchaseUi(string accessData)
-		{
-			var url = XsollaSettings.IsSandbox
-				? URL_PAYSTATION_UI_IN_SANDBOX_MODE_BY_ACCESS_DATA
-				: URL_PAYSTATION_UI_BY_ACCESS_DATA;
-
-			BrowserHelper.Instance.OpenPurchase(url, accessData, XsollaSettings.IsSandbox,
-				XsollaSettings.InAppBrowserEnabled);
-		}
 
 		/// <summary>
 		/// Polls Paystation every seconds to know when payment finished.
