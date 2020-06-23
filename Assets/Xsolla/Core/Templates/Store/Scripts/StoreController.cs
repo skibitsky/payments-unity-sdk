@@ -4,24 +4,26 @@ using UnityEngine;
 using Xsolla.Core;
 
 public abstract class StoreController : MonoBehaviour
-{	
+{
 	GroupsController _groupsController;
 	ItemsController _itemsController;
 	ItemsTabControl _itemsTabControl;
 
 	protected abstract IStoreDemoImplementation GetImplementation();
-	
+
 	protected virtual void OnDestroy()
 	{
 		StopAllCoroutines();
-		if(UserCatalog.IsExist)
+		if (UserCatalog.IsExist)
 			Destroy(UserCatalog.Instance.gameObject);
-		if(UserInventory.IsExist)
+		if (UserInventory.IsExist)
 			Destroy(UserInventory.Instance.gameObject);
 	}
 
-	protected virtual void Awake() { }
-	
+	protected virtual void Awake()
+	{
+	}
+
 	protected virtual void Start()
 	{
 		_groupsController = FindObjectOfType<GroupsController>();
@@ -31,7 +33,7 @@ public abstract class StoreController : MonoBehaviour
 		ApplyStoreImplementation(GetImplementation());
 		CatalogInit();
 	}
-	
+
 	private void ApplyStoreImplementation(IStoreDemoImplementation implementation)
 	{
 		_itemsController.Init(implementation);
@@ -41,21 +43,23 @@ public abstract class StoreController : MonoBehaviour
 
 	private void CatalogInit()
 	{
-		_groupsController.GroupSelectedEvent += groupId => {
+		_groupsController.GroupSelectedEvent += groupId =>
+		{
 			_itemsController.ActivateContainer(groupId);
 			_itemsTabControl.ActivateStoreTab();
 		};
 		UserCatalog.Instance.UpdateItems(InitStoreUi);
 	}
-	
+
 	protected virtual void InitStoreUi()
-	{	// This method used for fastest async image loading
+	{
+		// This method used for fastest async image loading
 		StartLoadItemImages(UserCatalog.Instance.AllItems);
 
 		_itemsTabControl.Init();
-		
+
 		CreateAndFillCatalogGroups(UserCatalog.Instance.AllItems);
-		
+
 		RefreshInventory();
 	}
 
@@ -66,8 +70,10 @@ public abstract class StoreController : MonoBehaviour
 
 	private void CreateAndFillCatalogGroups(List<CatalogItemModel> items)
 	{
-		if (items.Any()) {
-			items.ForEach(i => {
+		if (items.Any())
+		{
+			items.ForEach(i =>
+			{
 				var groups = GetImplementation().GetCatalogGroupsByItem(i);
 				groups.ForEach(groupName =>
 				{
@@ -76,9 +82,11 @@ public abstract class StoreController : MonoBehaviour
 				});
 			});
 		}
-		else {
+		else
+		{
 			_groupsController.AddGroup("ALL");
 		}
+
 		_groupsController.SelectDefault();
 	}
 

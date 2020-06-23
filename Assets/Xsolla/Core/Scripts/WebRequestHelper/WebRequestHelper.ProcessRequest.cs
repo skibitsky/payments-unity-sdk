@@ -33,25 +33,35 @@ namespace Xsolla.Core
 		void ProcessRequest(UnityWebRequest webRequest, Action<string> onComplete, Action<Error> onError)
 		{
 			Error error;
-			try {
+			try
+			{
 				error = CheckResponseForErrors(webRequest);
-			}catch(Exception e) {
+			}
+			catch (Exception e)
+			{
 				Debug.LogWarning(e.Message);
 				error = null;
 			}
-			if (error == null) {
+
+			if (error == null)
+			{
 				string data = webRequest.downloadHandler.text;
-				if (data != null) {
+				if (data != null)
+				{
 					onComplete?.Invoke(data);
-				} else {
+				}
+				else
+				{
 					error = Error.UnknownError;
 				}
 			}
-			if (error != null) {
+
+			if (error != null)
+			{
 				TriggerOnError(onError, error);
 			}
 		}
-		
+
 		/// <summary>
 		/// Processing request and invoke Texture2D (Action<Texture2D>) callback by success
 		/// </summary>
@@ -65,14 +75,19 @@ namespace Xsolla.Core
 				error = Error.NetworkError;
 			if (error == null)
 			{
-				var texture = ((DownloadHandlerTexture)webRequest.downloadHandler).texture;
-				if (texture != null) {
+				var texture = ((DownloadHandlerTexture) webRequest.downloadHandler).texture;
+				if (texture != null)
+				{
 					onComplete?.Invoke(texture);
-				} else {
+				}
+				else
+				{
 					error = Error.UnknownError;
 				}
 			}
-			if (error != null) {
+
+			if (error != null)
+			{
 				TriggerOnError(onError, error);
 			}
 		}
@@ -87,20 +102,26 @@ namespace Xsolla.Core
 		void ProcessRequest<T>(UnityWebRequest webRequest, Action<T> onComplete, Action<Error> onError) where T : class
 		{
 			Error error = CheckResponseForErrors(webRequest);
-			if (error == null) {
+			if (error == null)
+			{
 				T data = GetResponsePayload<T>(webRequest);
-				if(data != null) {
+				if (data != null)
+				{
 					onComplete?.Invoke(data);
-				} else {
+				}
+				else
+				{
 					error = Error.UnknownError;
 				}
 			}
-			if (error != null) {
+
+			if (error != null)
+			{
 				TriggerOnError(onError, error);
 			}
 		}
 
-		T GetResponsePayload<T>(UnityWebRequest webRequest) where T: class
+		T GetResponsePayload<T>(UnityWebRequest webRequest) where T : class
 		{
 			string responseData = webRequest.downloadHandler.text;
 			return string.IsNullOrEmpty(responseData) ? null : responseData.DeserializeTo<T>();
@@ -108,9 +129,11 @@ namespace Xsolla.Core
 
 		Error CheckResponseForErrors(UnityWebRequest webRequest)
 		{
-			if (webRequest.isNetworkError) {
+			if (webRequest.isNetworkError)
+			{
 				return Error.NetworkError;
 			}
+
 			return CheckResponsePayloadForErrors(webRequest);
 		}
 
@@ -120,7 +143,7 @@ namespace Xsolla.Core
 			Debug.Log(
 				"URL: " + webRequest.url + Environment.NewLine +
 				"RESPONSE: " + responseData
-				);
+			);
 			return (responseData != null) ? TryParseErrorMessage(responseData) : null;
 		}
 
@@ -136,4 +159,3 @@ namespace Xsolla.Core
 		}
 	}
 }
-

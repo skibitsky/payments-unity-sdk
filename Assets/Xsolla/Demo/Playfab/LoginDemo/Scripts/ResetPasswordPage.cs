@@ -6,36 +6,36 @@ using Xsolla.ThirdParty.Playfab.Api;
 
 public class ResetPasswordPage : Page, IResetPassword
 {
-    [SerializeField] private InputField email_InputField;
-    [SerializeField] private Button change_Btn;
+	[SerializeField] private InputField email_InputField;
+	[SerializeField] private Button change_Btn;
 
-    public Action OnSuccessfulResetPassword { get; set; }
-    public Action<Error> OnUnsuccessfulResetPassword { get; set; }
+	public Action OnSuccessfulResetPassword { get; set; }
+	public Action<Error> OnUnsuccessfulResetPassword { get; set; }
 
-    private void Awake()
-    {
-        change_Btn.onClick.AddListener(ResetPassword);
-        email_InputField.onValueChanged.AddListener(delegate { UpdateButtonState(); });
-    }
-    
-    void Start()
-    {
-        UpdateButtonState();
-    }
+	private void Awake()
+	{
+		change_Btn.onClick.AddListener(ResetPassword);
+		email_InputField.onValueChanged.AddListener(delegate { UpdateButtonState(); });
+	}
 
-    void UpdateButtonState()
-    {
-        change_Btn.interactable = !string.IsNullOrEmpty(email_InputField.text);
-    }
+	void Start()
+	{
+		UpdateButtonState();
+	}
 
-    private void SuccessfulResetPassword()
-    {
-        Debug.Log("Successfull reseted password");
-        OnSuccessfulResetPassword?.Invoke();
-    }
+	void UpdateButtonState()
+	{
+		change_Btn.interactable = !string.IsNullOrEmpty(email_InputField.text);
+	}
 
-    public void ResetPassword()
-    {
-        PlayfabApi.Auth.ResetPassword(email_InputField.text, SuccessfulResetPassword, OnUnsuccessfulResetPassword);
-    }
+	private void SuccessfulResetPassword()
+	{
+		Debug.Log("Successfull reseted password");
+		OnSuccessfulResetPassword?.Invoke();
+	}
+
+	public void ResetPassword()
+	{
+		PlayfabApi.Auth.ResetPassword(email_InputField.text, SuccessfulResetPassword, OnUnsuccessfulResetPassword);
+	}
 }

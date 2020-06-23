@@ -11,7 +11,7 @@ public class ValueCounter : MonoBehaviour
 		return value;
 	}
 
-    public void IncreaseValue(int delta)
+	public void IncreaseValue(int delta)
 	{
 		value += delta;
 		ValueChanged?.Invoke(value);

@@ -20,7 +20,8 @@ public class BasicAuthButton : MonoBehaviour
 
 	private void Update()
 	{
-		if(isEnabled != null) {
+		if (isEnabled != null)
+		{
 			button.interactable = isEnabled.Invoke();
 		}
 	}
@@ -53,7 +54,8 @@ public class BasicAuthButton : MonoBehaviour
 
 	private UnityAction WithRateLimits(UnityAction action)
 	{
-		return () => {
+		return () =>
+		{
 			TimeSpan ts = DateTime.Now - lastClick;
 			if (!(ts.TotalMilliseconds > rateLimitMs)) return;
 			lastClick += ts;

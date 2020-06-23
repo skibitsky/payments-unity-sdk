@@ -12,7 +12,7 @@ public class ValueCounterControl : MonoBehaviour
 	private ValueCounter counter;
 
 	void Start()
-    {
+	{
 		counter = gameObject.GetComponent<ValueCounter>();
 		counter.ValueChanged += Counter_ValueChanged;
 

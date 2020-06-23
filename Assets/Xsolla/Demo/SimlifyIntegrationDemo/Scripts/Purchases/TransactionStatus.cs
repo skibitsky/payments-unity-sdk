@@ -10,6 +10,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 			done,
 			lost
 		}
+
 		private enum Failed
 		{
 			canceled,
@@ -24,6 +25,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 			stop,
 			partiallyRefunded
 		}
+
 		private enum InProgress
 		{
 			created,
@@ -35,12 +37,12 @@ namespace Xsolla.Demo.SimplifyIntegration
 		{
 			return Enum.GetNames(typeof(Success)).ToList().Contains(transactionStatus);
 		}
-		
+
 		public static bool IsFailed(string transactionStatus)
 		{
 			return Enum.GetNames(typeof(Failed)).ToList().Contains(transactionStatus);
 		}
-		
+
 		public static bool IsInProgress(string transactionStatus)
 		{
 			return string.IsNullOrEmpty(transactionStatus) ||

@@ -8,18 +8,20 @@ namespace Xsolla.ThirdParty.Playfab.Api.Catalog
 	public class CatalogItemEntity
 	{
 		public const string REAL_MONEY_CURRENCY = "RM";
-		
+
 		[Serializable]
 		public class ConsumableOptions
 		{
 			public uint? UsageCount;
 			public uint? UsagePeriod;
 		}
+
 		[Serializable]
 		public class BundleSettings
 		{
 			public Dictionary<string, uint> BundledVirtualCurrencies;
 		}
+
 		[Flags]
 		public enum ItemGroups
 		{
@@ -29,20 +31,20 @@ namespace Xsolla.ThirdParty.Playfab.Api.Catalog
 			PowerUps = 4,
 			Currency = 8
 		}
-		
+
 		public string ItemId;
 		public string DisplayName;
 		public string Description;
 		public string ItemImageUrl;
 		public bool IsStackable;
-		
+
 		public Dictionary<string, uint> VirtualCurrencyPrices;
 		public ConsumableOptions Consumable;
 		public BundleSettings Bundle;
 
 		public bool IsVirtualCurrency() => Bundle?.BundledVirtualCurrencies != null;
 		public bool IsConsumable() => Consumable?.UsageCount != null;
-		
+
 		public KeyValuePair<string, uint>? GetVirtualPrice()
 		{
 			var prices = VirtualCurrencyPrices.Where(pair => !pair.Key.Equals(REAL_MONEY_CURRENCY)).ToList();
@@ -60,7 +62,7 @@ namespace Xsolla.ThirdParty.Playfab.Api.Catalog
 		public string GetVirtualCurrencySku() => IsVirtualCurrency()
 			? Bundle.BundledVirtualCurrencies.First().Key
 			: string.Empty;
-		
+
 		public uint GetVirtualCurrencyAmount() => IsVirtualCurrency()
 			? Bundle.BundledVirtualCurrencies.First().Value
 			: 0;

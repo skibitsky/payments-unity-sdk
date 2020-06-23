@@ -21,7 +21,7 @@ namespace Xsolla.Core
 		{
 			return (errorCode != 0) || !string.IsNullOrEmpty(error) || !string.IsNullOrEmpty(errorMessage);
 		}
-		
+
 		public override string ToString()
 		{
 			var result = string.IsNullOrEmpty(status) ? string.Empty : $"Request status: {status}. ";

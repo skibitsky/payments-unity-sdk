@@ -12,13 +12,13 @@ namespace Xsolla.Core
 		private const string SettingsAssetExtension = ".asset";
 
 		private static XsollaSettings _instance;
-		
+
 		[SerializeField] private string playfabTitleId = Constants.DEFAULT_PLAYFAB_TITLE_ID;
 		[SerializeField] private uint simplifyProjectId = Constants.DEFAULT_SIMPLIFY_PROJECT_ID;
 		[SerializeField] private bool isSandbox = true;
 		[SerializeField] private bool inAppBrowserEnabled = true;
 		[SerializeField] private PaystationTheme paystationTheme = PaystationTheme.Dark;
-		
+
 		public static string PlayfabTitleId
 		{
 			get => Instance.playfabTitleId;
@@ -28,7 +28,7 @@ namespace Xsolla.Core
 				MarkAssetDirty();
 			}
 		}
-		
+
 		public static uint SimplifyProjectId
 		{
 			get => Instance.simplifyProjectId;
@@ -52,15 +52,18 @@ namespace Xsolla.Core
 		public static bool InAppBrowserEnabled
 		{
 			get => Instance.inAppBrowserEnabled;
-			set {
+			set
+			{
 				Instance.inAppBrowserEnabled = value;
 				MarkAssetDirty();
 			}
 		}
-		
-		public static PaystationTheme PaystationTheme {
+
+		public static PaystationTheme PaystationTheme
+		{
 			get => Instance.paystationTheme;
-			set {
+			set
+			{
 				Instance.paystationTheme = value;
 				MarkAssetDirty();
 			}
@@ -96,7 +99,7 @@ namespace Xsolla.Core
 				foreach (var f in Directory.GetFiles(d))
 				{
 					if (f.Contains("XsollaSettingsEditor.cs"))
-					{ 
+					{
 						return f;
 					}
 				}

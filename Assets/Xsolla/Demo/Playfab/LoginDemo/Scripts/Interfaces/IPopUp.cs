@@ -2,6 +2,6 @@
 
 public interface IPopUp
 {
-    void ShowPopUp(string message);
-    UnityAction OnClose { set; }
+	void ShowPopUp(string message);
+	UnityAction OnClose { set; }
 }

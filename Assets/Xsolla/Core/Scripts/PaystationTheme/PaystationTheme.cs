@@ -15,7 +15,7 @@ namespace Xsolla.Core
 		private const string PAYSTATION_THEME_DARK = "dark";
 		private const string PAYSTATION_THEME_DEFAULT = "default";
 		private const string PAYSTATION_THEME_DEFAULT_DARK = "default_dark";
-		
+
 		public static string ConvertToSettings(PaystationTheme theme)
 		{
 			switch (theme)

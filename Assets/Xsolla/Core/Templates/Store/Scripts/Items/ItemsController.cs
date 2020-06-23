@@ -5,14 +5,9 @@ using Xsolla.Core;
 
 public class ItemsController : MonoBehaviour
 {
-	[SerializeField]
-	GameObject itemsContainerPrefab;
-
-	[SerializeField]
-	GameObject inventoryContainerPrefab;
-
-	[SerializeField]
-	Transform content;
+	[SerializeField] GameObject itemsContainerPrefab;
+	[SerializeField] GameObject inventoryContainerPrefab;
+	[SerializeField] Transform content;
 
 	private IStoreDemoImplementation _demoImplementation;
 	private readonly Dictionary<string, GameObject> _containers = new Dictionary<string, GameObject>();
@@ -21,9 +16,7 @@ public class ItemsController : MonoBehaviour
 	private void Awake()
 	{
 		var defaultContainers = GetDefaultContainers();
-		defaultContainers.ToList().ForEach(container => {
-			AddContainer(container.Value, container.Key);
-		});
+		defaultContainers.ToList().ForEach(container => { AddContainer(container.Value, container.Key); });
 		_isEmptyCatalog = true;
 	}
 
@@ -39,18 +32,21 @@ public class ItemsController : MonoBehaviour
 		var container = _containers.ContainsKey(containerName)
 			? _containers[containerName]
 			: AddContainer(itemsContainerPrefab, containerName);
-		if (_isEmptyCatalog) {
+		if (_isEmptyCatalog)
+		{
 			_isEmptyCatalog = false;
 			ActivateContainer(containerName);
 		}
+
 		container.GetComponent<ItemContainer>().AddItem(item);
 	}
 
 	private Dictionary<string, GameObject> GetDefaultContainers()
 	{
 		Dictionary<string, GameObject> itemContainers = GetDefaultItemContainers();
-		Dictionary<string, GameObject> otherContainers = new Dictionary<string, GameObject>() {
-			{ StoreConstants.INVENTORY_CONTAINER_NAME, inventoryContainerPrefab }
+		Dictionary<string, GameObject> otherContainers = new Dictionary<string, GameObject>()
+		{
+			{StoreConstants.INVENTORY_CONTAINER_NAME, inventoryContainerPrefab}
 		};
 		itemContainers.ToList().ForEach((container) => { otherContainers.Add(container.Key, container.Value); });
 		return otherContainers;
@@ -58,11 +54,12 @@ public class ItemsController : MonoBehaviour
 
 	private Dictionary<string, GameObject> GetDefaultItemContainers()
 	{
-		return new Dictionary<string, GameObject>() {
-			{ StoreConstants.EMPTY_CONTAINER_NAME, itemsContainerPrefab }
+		return new Dictionary<string, GameObject>()
+		{
+			{StoreConstants.EMPTY_CONTAINER_NAME, itemsContainerPrefab}
 		};
 	}
-	
+
 	GameObject AddContainer(GameObject itemContainerPref, string containerName)
 	{
 		var newContainer = Instantiate(itemContainerPref, content);
@@ -92,7 +89,8 @@ public class ItemsController : MonoBehaviour
 	private void CheckForEmptyCatalogMessage(GameObject activeContainer)
 	{
 		ItemContainer itemContainer = activeContainer.GetComponent<ItemContainer>();
-		if (_isEmptyCatalog && (itemContainer != null) && itemContainer.IsEmpty()) {
+		if (_isEmptyCatalog && (itemContainer != null) && itemContainer.IsEmpty())
+		{
 			itemContainer.EnableEmptyContainerMessage();
 		}
 	}

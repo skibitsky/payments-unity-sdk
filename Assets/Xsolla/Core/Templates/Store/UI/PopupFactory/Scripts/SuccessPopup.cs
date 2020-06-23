@@ -15,21 +15,23 @@ namespace Xsolla.Core.Popup
 
 		private void Awake()
 		{
-			if(button != null) {
+			if (button != null)
+			{
 				button.onClick = () => Destroy(gameObject, 0.001F);
 			}
 		}
 
 		ISuccessPopup ISuccessPopup.SetButtonText(string text)
 		{
-			if(!string.IsNullOrEmpty(text))
+			if (!string.IsNullOrEmpty(text))
 				buttonText.text = text;
 			return this;
 		}
 
 		ISuccessPopup ISuccessPopup.SetCallback(Action buttonPressed)
-		{			
-			button.onClick = () => {
+		{
+			button.onClick = () =>
+			{
 				buttonPressed?.Invoke();
 				Destroy(gameObject, 0.001F);
 			};
@@ -38,7 +40,7 @@ namespace Xsolla.Core.Popup
 
 		ISuccessPopup ISuccessPopup.SetMessage(string messageText)
 		{
-			if(!string.IsNullOrEmpty(messageText))
+			if (!string.IsNullOrEmpty(messageText))
 				message.text = messageText;
 			return this;
 		}

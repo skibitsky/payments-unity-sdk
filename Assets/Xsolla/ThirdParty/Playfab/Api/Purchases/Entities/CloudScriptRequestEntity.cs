@@ -12,6 +12,7 @@ namespace Xsolla.ThirdParty.Playfab.Api.Purchases
 			public uint amount;
 			public string orderId;
 		}
+
 		public string FunctionName;
 		public CloudScriptArgs FunctionParameter;
 	}

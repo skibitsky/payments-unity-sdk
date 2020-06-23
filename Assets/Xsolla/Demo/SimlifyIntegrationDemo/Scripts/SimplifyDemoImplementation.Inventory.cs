@@ -5,19 +5,22 @@ using Xsolla.Core;
 
 namespace Xsolla.Demo.SimplifyIntegration
 {
-	public partial class SimplifyDemoImplementation : MonoSingleton<SimplifyDemoImplementation>, IStoreDemoImplementation
+	public partial class SimplifyDemoImplementation :
+		MonoSingleton<SimplifyDemoImplementation>,
+		IStoreDemoImplementation
 	{
 		public void GetInventoryItems(Action<List<InventoryItemModel>> onSuccess, Action<Error> onError = null)
 		{
-			List<InventoryItemModel> inventoryItems = 
-				LoadUserData<List<InventoryItemModel>>(SimplifyDemoConstants.USER_INVENTORY_ITEMS) ?? 
+			List<InventoryItemModel> inventoryItems =
+				LoadUserData<List<InventoryItemModel>>(SimplifyDemoConstants.USER_INVENTORY_ITEMS) ??
 				new List<InventoryItemModel>();
 			onSuccess?.Invoke(inventoryItems);
 		}
 
-		public void GetVirtualCurrencyBalance(Action<List<VirtualCurrencyBalanceModel>> onSuccess, Action<Error> onError = null)
+		public void GetVirtualCurrencyBalance(Action<List<VirtualCurrencyBalanceModel>> onSuccess,
+			Action<Error> onError = null)
 		{
-			List<VirtualCurrencyBalanceModel> balanceModels = 
+			List<VirtualCurrencyBalanceModel> balanceModels =
 				LoadUserData<List<VirtualCurrencyBalanceModel>>(SimplifyDemoConstants.USER_VIRTUAL_CURRENCY_BALANCE) ??
 				new List<VirtualCurrencyBalanceModel>();
 			UserCatalog.Instance.Currencies.ForEach(c =>
@@ -29,7 +32,8 @@ namespace Xsolla.Demo.SimplifyIntegration
 			onSuccess?.Invoke(balanceModels);
 		}
 
-		public void ConsumeInventoryItem(InventoryItemModel item, uint count, Action<InventoryItemModel> onSuccess, Action<InventoryItemModel> onFailed = null)
+		public void ConsumeInventoryItem(InventoryItemModel item, uint count, Action<InventoryItemModel> onSuccess,
+			Action<InventoryItemModel> onFailed = null)
 		{
 			StoreDemoPopup.ConsumeConfirmation(item.Name, count, () =>
 			{
@@ -52,7 +56,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 				PutVirtualItemToInventory(inventoryItem);
 			}
 		}
-		
+
 		private void IncreaseVirtualCurrencyBalance(string sku, uint amount)
 		{
 			if (UserInventory.Instance.Balance.Count(b => b.Sku.Equals(sku)) <= 0) return;
@@ -60,7 +64,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 			balance.Amount += amount;
 			SaveUserData(SimplifyDemoConstants.USER_VIRTUAL_CURRENCY_BALANCE, UserInventory.Instance.Balance);
 		}
-		
+
 		private void PutVirtualItemToInventory(InventoryItemModel item)
 		{
 			if (UserInventory.Instance.Items.Any(i => i.Sku.Equals(item.Sku)))
@@ -73,21 +77,24 @@ namespace Xsolla.Demo.SimplifyIntegration
 			}
 			else
 				UserInventory.Instance.Items.Add(item);
+
 			SaveUserData(SimplifyDemoConstants.USER_INVENTORY_ITEMS, UserInventory.Instance.Items);
 		}
 
 		private void RemoveItemFromInventory(InventoryItemModel item, uint count)
 		{
-			if (item.RemainingUses.HasValue && item.RemainingUses.Value <= count || !string.IsNullOrEmpty(item.InstanceId))
+			if (item.RemainingUses.HasValue && item.RemainingUses.Value <= count ||
+			    !string.IsNullOrEmpty(item.InstanceId))
 				UserInventory.Instance.Items.Remove(item);
 			else
 			{
-				if(item.RemainingUses.HasValue)
+				if (item.RemainingUses.HasValue)
 					item.RemainingUses -= count;
 			}
+
 			SaveUserData(SimplifyDemoConstants.USER_INVENTORY_ITEMS, UserInventory.Instance.Items);
 		}
-		
+
 		private InventoryItemModel GetInventoryItemBy(CatalogItemModel item)
 		{
 			string json = item.SerializeToJson();

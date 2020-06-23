@@ -10,11 +10,13 @@ namespace Xsolla.Demo.SimplifyIntegration
 	public class PurchaseHelper : MonoSingleton<PurchaseHelper>
 	{
 		private const string URL_PAYSTATION_UI_BY_ACCESS_DATA = "https://secure.xsolla.com/paystation2/?access_data=";
-		private const string URL_PAYSTATION_UI_IN_SANDBOX_MODE_BY_ACCESS_DATA = "https://sandbox-secure.xsolla.com/paystation2/?access_data=";
-		
+
+		private const string URL_PAYSTATION_UI_IN_SANDBOX_MODE_BY_ACCESS_DATA =
+			"https://sandbox-secure.xsolla.com/paystation2/?access_data=";
+
 		private readonly List<string> _purchaseFlowComplete = new List<string>();
 		private readonly List<string> _stoppedTransactions = new List<string>();
-		
+
 		/// <summary>
 		/// Open Paystation in the browser with retrieved Paystation Token.
 		/// </summary>
@@ -26,17 +28,20 @@ namespace Xsolla.Demo.SimplifyIntegration
 			var url = XsollaSettings.IsSandbox
 				? URL_PAYSTATION_UI_IN_SANDBOX_MODE_BY_ACCESS_DATA
 				: URL_PAYSTATION_UI_BY_ACCESS_DATA;
-				
-			BrowserHelper.Instance.OpenPurchase(url, accessData, XsollaSettings.IsSandbox, XsollaSettings.InAppBrowserEnabled);
+
+			BrowserHelper.Instance.OpenPurchase(url, accessData, XsollaSettings.IsSandbox,
+				XsollaSettings.InAppBrowserEnabled);
 		}
-		
+
 		/// <summary>
-		/// Polls Playfab every seconds to know when payment finished.
+		/// Polls Paystation every seconds to know when payment finished.
 		/// </summary>
+		/// <param name="projectId">Project ID from your Publisher Account.</param>
 		/// <param name="transactionId">Unique identifier of created transaction.</param>
 		/// <param name="onSuccess">Success payment callback.</param>
 		/// <param name="onError">Failed operation callback.</param>
-		public void ProcessOrder(string projectId, string transactionId, [NotNull] Action onSuccess, [CanBeNull] Action<Error> onError = null)
+		public void ProcessOrder(string projectId, string transactionId, [NotNull] Action onSuccess,
+			[CanBeNull] Action<Error> onError = null)
 		{
 			StartCoroutine(CheckOrderStatus(projectId, transactionId, onSuccess, onError));
 		}
@@ -46,7 +51,8 @@ namespace Xsolla.Demo.SimplifyIntegration
 			_stoppedTransactions.Add(transactionId);
 		}
 
-		IEnumerator CheckOrderStatus(string projectId, string transactionId, [NotNull] Action onSuccess, [CanBeNull] Action<Error> onError = null)
+		IEnumerator CheckOrderStatus(string projectId, string transactionId, [NotNull] Action onSuccess,
+			[CanBeNull] Action<Error> onError = null)
 		{
 			// Wait 1 second before API polling
 			yield return new WaitForSeconds(1.0f);
@@ -56,11 +62,13 @@ namespace Xsolla.Demo.SimplifyIntegration
 				var status = response.status;
 				Debug.Log($"Order `{transactionId}` status is `{status}`!");
 				CheckUserFlow(transactionId, status);
-				if (TransactionStatus.IsInProgress(status)) {
+				if (TransactionStatus.IsInProgress(status))
+				{
 					if (NeedToRequestStatusAgain(transactionId))
-						StartCoroutine(CheckOrderStatus(projectId,transactionId, onSuccess, onError));
+						StartCoroutine(CheckOrderStatus(projectId, transactionId, onSuccess, onError));
 				}
-				else {
+				else
+				{
 					if (TransactionStatus.IsSuccess(status))
 						onSuccess?.Invoke();
 					else
@@ -69,7 +77,9 @@ namespace Xsolla.Demo.SimplifyIntegration
 							onError?.Invoke(new Error {errorMessage = $"Payment status: {status}"});
 						else
 						{
-							Debug.LogError($"Get unknown transaction status = `{status}`!");
+							var errorMessage = $"Get unknown transaction status = `{status}`!";
+							Debug.LogError(errorMessage);
+							onError?.Invoke(new Error {errorMessage = errorMessage});
 						}
 					}
 				}
@@ -78,8 +88,8 @@ namespace Xsolla.Demo.SimplifyIntegration
 
 		private void CheckUserFlow(string transactionId, string status)
 		{
-			if(IsUserCompletePurchaseFlow(transactionId)) return;
-			if(string.IsNullOrEmpty(status)) return;
+			if (IsUserCompletePurchaseFlow(transactionId)) return;
+			if (string.IsNullOrEmpty(status)) return;
 			_purchaseFlowComplete.Add(transactionId);
 		}
 
@@ -90,10 +100,10 @@ namespace Xsolla.Demo.SimplifyIntegration
 
 		private bool NeedToRequestStatusAgain(string transactionId)
 		{
-			return !TransactionIsStopped(transactionId) && 
+			return !TransactionIsStopped(transactionId) &&
 			       (IsTheInGameBrowserOpen() || IsUserCompletePurchaseFlow(transactionId));
 		}
-		
+
 		private bool TransactionIsStopped(string transactionId)
 		{
 			if (!_stoppedTransactions.Contains(transactionId)) return false;
@@ -102,7 +112,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 		}
 
 		private bool IsTheInGameBrowserOpen()
-		{	
+		{
 #if UNITY_STANDALONE
 			// If external browser is used, then we don't know - is the browser open.
 			if (!XsollaSettings.InAppBrowserEnabled) return true;

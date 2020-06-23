@@ -27,15 +27,20 @@ namespace Xsolla.Core
 
 		public void GetImageAsync(string url, Action<string, Sprite> callback)
 		{
-			if (_images.ContainsKey(url)) {
+			if (_images.ContainsKey(url))
+			{
 				callback?.Invoke(url, _images[url]);
 				return;
 			}
-			if (!_pendingImages.Contains(url)) {
+
+			if (!_pendingImages.Contains(url))
+			{
 				_pendingImages.Add(url);
 				StartCoroutine(LoadImage(url));
 			}
-			if(callback != null) {
+
+			if (callback != null)
+			{
 				StartCoroutine(WaitImage(url, callback));
 			}
 		}

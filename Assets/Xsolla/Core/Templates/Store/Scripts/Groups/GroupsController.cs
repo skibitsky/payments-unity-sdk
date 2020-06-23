@@ -6,7 +6,7 @@ using UnityEngine;
 public class GroupsController : MonoBehaviour
 {
 	public event Action<string> GroupSelectedEvent;
-	
+
 	[SerializeField] private GameObject groupPrefab;
 	[SerializeField] private RectTransform scrollView;
 
@@ -39,11 +39,15 @@ public class GroupsController : MonoBehaviour
 	{
 		IGroup group = GetSelectedGroup();
 		int index = Groups.IndexOf(group);
-		if (index == 0) {
+		if (index == 0)
+		{
 			index = Groups.Count - 1;
-		} else {
+		}
+		else
+		{
 			index--;
 		}
+
 		group = Groups.ElementAt(index);
 		group.Select();
 		SelectGroup(group.Id);
@@ -54,19 +58,19 @@ public class GroupsController : MonoBehaviour
 		if (Groups.Exists(group => group.Name == groupName))
 			return;
 		var newGroupGameObject = Instantiate(groupPrefab, scrollView.transform);
-		newGroupGameObject.name = 
+		newGroupGameObject.name =
 			"Group_" +
-			groupName.ToUpper().First() + 
-			groupName.Substring(1).Replace(" ", "").ToLower(); 
-			
+			groupName.ToUpper().First() +
+			groupName.Substring(1).Replace(" ", "").ToLower();
+
 		var newGroup = newGroupGameObject.GetComponent<IGroup>();
 		newGroup.Id = groupName;
-		newGroup.Name  = groupName;
+		newGroup.Name = groupName;
 		newGroup.OnGroupClick += SelectGroup;
 
 		Groups.Add(newGroup);
 	}
-	
+
 	private void SelectGroup(string groupId)
 	{
 		Groups.Where(g => g.Id != groupId).ToList().ForEach(g => g.Deselect());
@@ -85,7 +89,7 @@ public class GroupsController : MonoBehaviour
 	{
 		var selected = Groups.Find(group => group.IsSelected());
 		if (selected != null || !Groups.Any()) return selected;
-		
+
 		SelectDefault();
 		selected = Groups.Find(group => group.IsSelected());
 		return selected;

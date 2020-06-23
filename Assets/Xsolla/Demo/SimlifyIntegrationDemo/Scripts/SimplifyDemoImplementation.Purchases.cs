@@ -6,11 +6,13 @@ using Xsolla.Core;
 
 namespace Xsolla.Demo.SimplifyIntegration
 {
-	public partial class SimplifyDemoImplementation : MonoSingleton<SimplifyDemoImplementation>, IStoreDemoImplementation
+	public partial class SimplifyDemoImplementation : 
+		MonoSingleton<SimplifyDemoImplementation>,
+		IStoreDemoImplementation
 	{
 		private const float LOST_TRANSACTION_NOTIFICATION_TIMEOUT_MIN = 10.0F;
 
-		private bool _isUserNotificated;
+		private bool _isUserNotified;
 
 		private void InitPurchases()
 		{
@@ -23,11 +25,12 @@ namespace Xsolla.Demo.SimplifyIntegration
 			});
 		}
 
-		public void PurchaseForRealMoney(CatalogItemModel item, [CanBeNull] Action<CatalogItemModel> onSuccess = null, [CanBeNull] Action<Error> onError = null)
+		public void PurchaseForRealMoney(CatalogItemModel item, [CanBeNull] Action<CatalogItemModel> onSuccess = null,
+			[CanBeNull] Action<Error> onError = null)
 		{
 			var transaction = CreateTransaction(item);
 			var accessData = CreateAccessData(XsollaSettings.SimplifyProjectId, transaction.transactionId, item);
-			
+
 			PurchaseHelper.Instance.OpenPurchaseUi(accessData);
 			var timeoutCoroutine = FailedTransactionNotification(transaction);
 			HandleTransaction(transaction, timeoutCoroutine, catalogItem =>
@@ -46,7 +49,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 
 		private void HandleTransaction(
 			TransactionCache transaction,
-			IEnumerator timeoutCoroutine, 
+			IEnumerator timeoutCoroutine,
 			[CanBeNull] Action<CatalogItemModel> onSuccess = null,
 			[CanBeNull] Action<Error> onError = null)
 		{
@@ -59,10 +62,12 @@ namespace Xsolla.Demo.SimplifyIntegration
 				onSuccess?.Invoke(transaction.item);
 			}, error =>
 			{
-				if (error.IsNetworkError) {
+				if (error.IsNetworkError)
+				{
 					StartCoroutine(LostConnectionHandler(transaction, timeoutCoroutine, onSuccess, onError));
 				}
-				else {
+				else
+				{
 					StopCoroutine(timeoutCoroutine);
 					ClearTransactionCache(transaction);
 					GetErrorCallback(onError)?.Invoke(error);
@@ -82,10 +87,11 @@ namespace Xsolla.Demo.SimplifyIntegration
 			HandleTransaction(transaction, timeoutCoroutine, onSuccess, onError);
 		}
 
-		private IEnumerator FailedTransactionNotification(TransactionCache transactionCache, Action<TransactionCache> callback = null)
+		private IEnumerator FailedTransactionNotification(TransactionCache transactionCache,
+			Action<TransactionCache> callback = null)
 		{
 			// Wait while user complete purchase flow
-			yield return new WaitUntil(() => 
+			yield return new WaitUntil(() =>
 				PurchaseHelper.Instance.IsUserCompletePurchaseFlow(transactionCache.transactionId));
 			// Wait timeout
 			yield return new WaitUntil(() => IsLostTimeoutExpired(transactionCache));
@@ -96,19 +102,24 @@ namespace Xsolla.Demo.SimplifyIntegration
 			callback?.Invoke(transactionCache);
 		}
 
-		private IEnumerator CheckOldTransaction(TransactionCache transactionCache, Action<TransactionCache> callback = null)
-		{   // Wait status update
+		private IEnumerator CheckOldTransaction(TransactionCache transactionCache,
+			Action<TransactionCache> callback = null)
+		{
+			// Wait status update
 			yield return new WaitForSeconds(5.0F);
 			if (IsLostTimeoutExpired(transactionCache))
-			{   // Stop server polling
+			{
+				// Stop server polling
 				PurchaseHelper.Instance.StopProccessing(transactionCache.transactionId);
 				// If user complete purchase flow and status still `In progress`, then something went wrong
-				if (!_isUserNotificated && PurchaseHelper.Instance.IsUserCompletePurchaseFlow(transactionCache.transactionId))
+				if (!_isUserNotified &&
+				    PurchaseHelper.Instance.IsUserCompletePurchaseFlow(transactionCache.transactionId))
 				{
 					ShowTransactionErrorMessage();
 					ClearTransactionCache(transactionCache);
-					_isUserNotificated = true;
+					_isUserNotified = true;
 				}
+
 				callback?.Invoke(transactionCache);
 			}
 			else yield return StartCoroutine(FailedTransactionNotification(transactionCache, callback));
@@ -116,19 +127,24 @@ namespace Xsolla.Demo.SimplifyIntegration
 
 		private void ShowTransactionErrorMessage()
 		{
-			StoreDemoPopup.ShowError(new Error{errorMessage = 
-				"Some transactions are not finished. " +
-				"Please, contact the support team for additional information."}).SetTitle("");
+			StoreDemoPopup.ShowError(new Error
+			{
+				errorMessage =
+					"Some transactions are not finished. " +
+					"Please, contact the support team for additional information."
+			}).SetTitle("");
 		}
 
 		private bool IsLostTimeoutExpired(TransactionCache transactionCache)
-		{   // Calculate wait transaction time
+		{
+			// Calculate wait transaction time
 			var elapsedDateTime = transactionCache.dateTime.AddMinutes(LOST_TRANSACTION_NOTIFICATION_TIMEOUT_MIN);
 			// LOST_TRANSACTION_NOTIFICATION_TIMEOUT_MIN timeout elapsed?
 			return DateTime.Now.CompareTo(elapsedDateTime) > 0;
 		}
 
-		public void PurchaseForVirtualCurrency(CatalogItemModel item, [CanBeNull] Action<CatalogItemModel> onSuccess = null, [CanBeNull] Action<Error> onError = null)
+		public void PurchaseForVirtualCurrency(CatalogItemModel item,
+			[CanBeNull] Action<CatalogItemModel> onSuccess = null, [CanBeNull] Action<Error> onError = null)
 		{
 			throw new NotImplementedException("Purchase for virtual currency not implemented in simplify demo.");
 		}

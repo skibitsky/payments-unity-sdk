@@ -8,11 +8,15 @@ public class ConsumeButton : MonoBehaviour
 	public ValueCounter counter;
 
 	void Start()
-    {
-		consumeButton.onClick = () => {
-			if(counter > 0) {
+	{
+		consumeButton.onClick = () =>
+		{
+			if (counter > 0)
+			{
 				onClick?.Invoke();
-			} else {
+			}
+			else
+			{
 				Debug.Log("You try consume item with quantity = 0!");
 			}
 		};

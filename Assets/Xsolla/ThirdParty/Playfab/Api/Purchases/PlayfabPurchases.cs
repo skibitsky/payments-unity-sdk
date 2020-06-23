@@ -22,7 +22,8 @@ namespace Xsolla.ThirdParty.Playfab.Api.Purchases
 		/// <param name="onError">Failed operation callback.</param>
 		/// <seealso cref="ItemPurchaseForVirtualCurrency"/>
 		/// <seealso cref="CheckOrderStatus"/>
-		public void ItemPurchase(string itemId, [NotNull] Action<PurchaseTransactionEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
+		public void ItemPurchase(string itemId, [NotNull] Action<PurchaseTransactionEntity> onSuccess,
+			[CanBeNull] Action<Error> onError = null)
 		{
 			StartPurchase(itemId, result => ExecuteCloudScript(itemId, result.OrderId, script =>
 			{
@@ -50,12 +51,13 @@ namespace Xsolla.ThirdParty.Playfab.Api.Purchases
 		/// <param name="itemId">Unique identifier of the item to purchase.</param>
 		/// <param name="onSuccess">Success operation callback.</param>
 		/// <param name="onError">Failed operation callback.</param>
-		private void StartPurchase(string itemId, [NotNull] Action<StartPurchaseResultEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
+		private void StartPurchase(string itemId, [NotNull] Action<StartPurchaseResultEntity> onSuccess,
+			[CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_START_PURCHASE);
-			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };
+			var headers = new List<WebRequestHeader> {PlayfabApi.Instance.GetAuthHeader()};
 			WebRequestHelper.Instance.PostRequest(
-				url, new StartPurchaseRequestEntity(itemId, ITEMS_QUANTITY_FOR_CLOUD_SCRIPT), headers, 
+				url, new StartPurchaseRequestEntity(itemId, ITEMS_QUANTITY_FOR_CLOUD_SCRIPT), headers,
 				(StartPurchaseResponseEntity response) => onSuccess?.Invoke(response.data), onError);
 		}
 
@@ -68,10 +70,11 @@ namespace Xsolla.ThirdParty.Playfab.Api.Purchases
 		/// <param name="orderId">Purchase order identifier.</param>
 		/// <param name="onSuccess">Success operation callback.</param>
 		/// <param name="onError">Failed operation callback.</param>
-		private void ExecuteCloudScript(string itemId, string orderId, [NotNull] Action<CloudScriptResultEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
+		private void ExecuteCloudScript(string itemId, string orderId,
+			[NotNull] Action<CloudScriptResultEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_CLOUD_SCRIPT);
-			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };
+			var headers = new List<WebRequestHeader> {PlayfabApi.Instance.GetAuthHeader()};
 			WebRequestHelper.Instance.PostRequest(url, new CloudScriptRequestEntity
 			{
 				FunctionName = CLOUD_SCRIPT_DEMO_METHOD,
@@ -95,10 +98,11 @@ namespace Xsolla.ThirdParty.Playfab.Api.Purchases
 		/// <param name="onError">Failed operation callback.</param>
 		/// <seealso cref="ItemPurchase"/>
 		/// <seealso cref="CheckOrderStatus"/>
-		public void ItemPurchaseForVirtualCurrency(string itemId, string currency, uint price, [NotNull] Action onSuccess, [CanBeNull] Action<Error> onError = null)
+		public void ItemPurchaseForVirtualCurrency(string itemId, string currency, uint price,
+			[NotNull] Action onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_BUY_ITEM_FOR_VC);
-			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };
+			var headers = new List<WebRequestHeader> {PlayfabApi.Instance.GetAuthHeader()};
 			WebRequestHelper.Instance.PostRequest(url, new PurchaseForVcRequestEntity
 			{
 				ItemId = itemId,
@@ -116,11 +120,12 @@ namespace Xsolla.ThirdParty.Playfab.Api.Purchases
 		/// <param name="onError">Failed operation callback.</param>
 		/// <seealso cref="ItemPurchase"/>
 		/// <seealso cref="ItemPurchaseForVirtualCurrency"/>
-		public void CheckOrderStatus(string orderId, [NotNull] Action<PurchaseStatusEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
+		public void CheckOrderStatus(string orderId, [NotNull] Action<PurchaseStatusEntity> onSuccess,
+			[CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_GET_PURCHASE_STATUS);
-			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };
-			WebRequestHelper.Instance.PostRequest(url, new PurchaseStatusRequestEntity {OrderId = orderId}, headers, 
+			var headers = new List<WebRequestHeader> {PlayfabApi.Instance.GetAuthHeader()};
+			WebRequestHelper.Instance.PostRequest(url, new PurchaseStatusRequestEntity {OrderId = orderId}, headers,
 				(PurchaseStatusResponseEntity response) => onSuccess?.Invoke(response.data), onError);
 		}
 	}

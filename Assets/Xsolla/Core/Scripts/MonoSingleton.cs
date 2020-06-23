@@ -42,6 +42,7 @@ namespace Xsolla.Core
 				if (result != null)
 					Debug.Log(componentName + " a temporary one is created.");
 			}
+
 			return result;
 		}
 
@@ -53,15 +54,16 @@ namespace Xsolla.Core
 		private static T InstantiateFromResources()
 		{
 			string path = PATH_TO_PREFABS + typeof(T).Name;
-			
+
 			var prefab = Resources.Load(path);
 			if (prefab == null) return null;
-			
+
 			GameObject instance = Instantiate(prefab) as GameObject;
 			if (instance != null)
 			{
 				instance.name = typeof(T).Name;
 			}
+
 			return instance == null ? null : instance.GetComponent<T>();
 		}
 
@@ -71,10 +73,9 @@ namespace Xsolla.Core
 			return instance.AddComponent<T>();
 		}
 
-		public static bool IsExist {
-			get {
-				return _instance != null;
-			}
+		public static bool IsExist
+		{
+			get { return _instance != null; }
 		}
 
 		// If no other MonoBehaviour request the instance in an awake function

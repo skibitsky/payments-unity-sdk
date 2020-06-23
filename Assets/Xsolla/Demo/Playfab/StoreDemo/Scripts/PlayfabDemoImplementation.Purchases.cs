@@ -8,7 +8,8 @@ namespace Xsolla.Demo.Store
 {
 	public partial class PlayfabDemoImplementation : MonoSingleton<PlayfabDemoImplementation>, IStoreDemoImplementation
 	{
-		public void PurchaseForRealMoney(CatalogItemModel item, [CanBeNull] Action<CatalogItemModel> onSuccess = null, [CanBeNull] Action<Error> onError = null)
+		public void PurchaseForRealMoney(CatalogItemModel item, [CanBeNull] Action<CatalogItemModel> onSuccess = null,
+			[CanBeNull] Action<Error> onError = null)
 		{
 			PurchaseHelper.Instance.PurchasePlayfabItemForRealMoney(item, _ =>
 			{
@@ -18,8 +19,9 @@ namespace Xsolla.Demo.Store
 				onSuccess?.Invoke(item);
 			}, GetErrorCallback(onError));
 		}
-		
-		public void PurchaseForVirtualCurrency(CatalogItemModel item, [CanBeNull] Action<CatalogItemModel> onSuccess = null, [CanBeNull] Action<Error> onError = null)
+
+		public void PurchaseForVirtualCurrency(CatalogItemModel item,
+			[CanBeNull] Action<CatalogItemModel> onSuccess = null, [CanBeNull] Action<Error> onError = null)
 		{
 			StoreDemoPopup.ShowConfirm(() =>
 				PurchaseHelper.Instance.PurchasePlayfabItemForVirtualCurrency(item, purchasedItem =>
@@ -29,7 +31,7 @@ namespace Xsolla.Demo.Store
 					onSuccess?.Invoke(item);
 				}, GetErrorCallback(onError)));
 		}
-		
+
 		private IEnumerator VirtualCurrencyPurchaseFinished(CatalogItemModel virtualItem)
 		{
 			var refreshDelay = virtualItem.IsVirtualCurrency() ? PLAYFAB_VIRTUAL_CURRENCY_ACCRUAL_TIMEOUT : 0.0F;

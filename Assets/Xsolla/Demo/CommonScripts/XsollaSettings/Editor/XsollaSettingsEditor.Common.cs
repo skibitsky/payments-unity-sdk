@@ -11,12 +11,13 @@ namespace Xsolla.Core
 			{
 				GUILayout.Label("Common Settings", EditorStyles.boldLabel);
 				XsollaSettings.IsSandbox = EditorGUILayout.Toggle("Enable sandbox?", XsollaSettings.IsSandbox);
-				XsollaSettings.InAppBrowserEnabled = EditorGUILayout.Toggle("Enable in-app browser?", XsollaSettings.InAppBrowserEnabled);
-				XsollaSettings.PaystationTheme = (PaystationTheme)EditorGUILayout.EnumPopup("Paystation theme", XsollaSettings.PaystationTheme);
+				XsollaSettings.InAppBrowserEnabled =
+					EditorGUILayout.Toggle("Enable in-app browser?", XsollaSettings.InAppBrowserEnabled);
+				XsollaSettings.PaystationTheme =
+					(PaystationTheme) EditorGUILayout.EnumPopup("Paystation theme", XsollaSettings.PaystationTheme);
 			}
-      
+
 			EditorGUILayout.Space();
 		}
 	}
 }
-

@@ -6,7 +6,8 @@ namespace Xsolla.Core
 	public partial class WebRequestHelper : MonoSingleton<WebRequestHelper>
 	{
 		public void AddOptionalHeadersTo(UnityWebRequest request)
-		{ }
+		{
+		}
 
 		public void AddContentTypeHeaderTo(UnityWebRequest request)
 		{
@@ -15,4 +16,3 @@ namespace Xsolla.Core
 		}
 	}
 }
-

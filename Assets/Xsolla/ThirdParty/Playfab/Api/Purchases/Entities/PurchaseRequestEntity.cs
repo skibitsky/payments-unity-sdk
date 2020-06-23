@@ -6,7 +6,7 @@ namespace Xsolla.ThirdParty.Playfab.Api.Purchases
 	public class PurchaseRequestEntity
 	{
 		public const string XSOLLA_PROVIDER = "xsolla";
-			
+
 		public string TokenProvider;
 
 		public PurchaseRequestEntity(string provider = XSOLLA_PROVIDER)

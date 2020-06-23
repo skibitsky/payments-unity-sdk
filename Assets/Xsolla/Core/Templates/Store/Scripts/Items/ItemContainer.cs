@@ -4,14 +4,9 @@ using UnityEngine.UI;
 
 public class ItemContainer : MonoBehaviour, IContainer
 {
-	[SerializeField]
-	GameObject itemPrefab;
-
-	[SerializeField]
-	Transform itemParent;
-
-	[SerializeField]
-	Text emptyMessageText;
+	[SerializeField] GameObject itemPrefab;
+	[SerializeField] Transform itemParent;
+	[SerializeField] Text emptyMessageText;
 
 	private readonly List<ItemUI> _items = new List<ItemUI>();
 	private IStoreDemoImplementation _demoImplementation;
@@ -37,7 +32,7 @@ public class ItemContainer : MonoBehaviour, IContainer
 		item.Initialize(virtualItemInformation, _demoImplementation);
 		_items.Add(item);
 	}
-	
+
 	public void EnableEmptyContainerMessage(string text = null)
 	{
 		emptyMessageText.gameObject.SetActive(true);
@@ -49,7 +44,8 @@ public class ItemContainer : MonoBehaviour, IContainer
 	{
 		emptyMessageText.gameObject.SetActive(false);
 	}
-	
+
 	public void Refresh()
-	{ }
+	{
+	}
 }

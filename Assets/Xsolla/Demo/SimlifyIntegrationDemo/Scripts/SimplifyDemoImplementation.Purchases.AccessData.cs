@@ -7,7 +7,9 @@ using Xsolla.Core;
 
 namespace Xsolla.Demo.SimplifyIntegration
 {
-	public partial class SimplifyDemoImplementation : MonoSingleton<SimplifyDemoImplementation>, IStoreDemoImplementation
+	public partial class SimplifyDemoImplementation : 
+		MonoSingleton<SimplifyDemoImplementation>,
+		IStoreDemoImplementation
 	{
 		private string CreateAccessData(uint projectId, string transactionId, CatalogItemModel item)
 		{
@@ -15,7 +17,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 			FillUserInfo(accessData);
 			FillSettings(accessData, projectId, transactionId);
 			FillPurchaseInfo(accessData, item);
-			
+
 			string json = accessData.SerializeToJson();
 			return HttpUtility.UrlEncode(json);
 		}
@@ -26,7 +28,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 			{
 				id = new AccessDataEntity.StringValue {value = "Some id"},
 				name = new AccessDataEntity.StringValue {value = "Username"},
-				email = new AccessDataEntity.StringValue {value = "m.levin@xsolla.com"},
+				email = new AccessDataEntity.StringValue {value = "userEmail@gmail.com"},
 				country = new AccessDataEntity.UserId.Country {value = "US", allow_modify = true}
 			};
 		}
@@ -42,7 +44,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 				ui = new AccessDataEntity.Settings.UI
 				{
 					size = "medium",
-					theme = PaystationThemeHelper.ConvertToSettings(XsollaSettings.PaystationTheme) 
+					theme = PaystationThemeHelper.ConvertToSettings(XsollaSettings.PaystationTheme)
 				}
 			};
 		}

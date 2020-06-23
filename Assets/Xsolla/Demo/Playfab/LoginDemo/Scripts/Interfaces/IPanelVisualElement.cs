@@ -1,5 +1,5 @@
 ﻿public interface IPanelVisualElement
 {
-    void Select();
-    void Deselect();
+	void Select();
+	void Deselect();
 }

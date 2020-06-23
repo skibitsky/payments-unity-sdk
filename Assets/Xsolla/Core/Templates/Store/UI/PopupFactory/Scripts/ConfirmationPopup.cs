@@ -7,18 +7,12 @@ namespace Xsolla.Core.Popup
 	[AddComponentMenu("Scripts/Xsolla.Core/Popup/ConfirmationPopup")]
 	public class ConfirmationPopup : MonoBehaviour, IConfirmationPopup
 	{
-		[SerializeField]
-		private Text Title;
-		[SerializeField]
-		private Text Message;
-		[SerializeField]
-		private SimpleTextButton ConfirmButton;
-		[SerializeField]
-		private Text ConfirmButtonText;
-		[SerializeField]
-		private SimpleTextButton CancelButton;
-		[SerializeField]
-		private Text CancelButtonText;
+		[SerializeField] private Text Title;
+		[SerializeField] private Text Message;
+		[SerializeField] private SimpleTextButton ConfirmButton;
+		[SerializeField] private Text ConfirmButtonText;
+		[SerializeField] private SimpleTextButton CancelButton;
+		[SerializeField] private Text CancelButtonText;
 
 		private void Awake()
 		{
@@ -26,6 +20,7 @@ namespace Xsolla.Core.Popup
 			{
 				ConfirmButton.onClick = () => Destroy(gameObject, 0.001F);
 			}
+
 			if (CancelButton != null)
 			{
 				CancelButton.onClick = () => Destroy(gameObject, 0.001F);
@@ -46,7 +41,8 @@ namespace Xsolla.Core.Popup
 
 		IConfirmationPopup IConfirmationPopup.SetConfirmCallback(Action buttonPressed)
 		{
-			ConfirmButton.onClick = () => {
+			ConfirmButton.onClick = () =>
+			{
 				buttonPressed?.Invoke();
 				Destroy(gameObject, 0.001F);
 			};
@@ -61,7 +57,8 @@ namespace Xsolla.Core.Popup
 
 		IConfirmationPopup IConfirmationPopup.SetCancelCallback(Action buttonPressed)
 		{
-			CancelButton.onClick = () => {
+			CancelButton.onClick = () =>
+			{
 				buttonPressed?.Invoke();
 				Destroy(gameObject, 0.001F);
 			};

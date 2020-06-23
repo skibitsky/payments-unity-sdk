@@ -11,4 +11,3 @@ namespace Xsolla.ThirdParty.Playfab.Api.Inventory
 		public uint? RemainingUses;
 	}
 }
-

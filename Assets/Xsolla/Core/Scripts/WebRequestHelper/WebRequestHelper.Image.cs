@@ -20,13 +20,15 @@ namespace Xsolla.Core
 			StartCoroutine(ImageRequestCoroutine(url, onComplete, onError));
 		}
 
-		public IEnumerator ImageRequestCoroutine(string url, Action<Texture2D> onComplete = null, Action<Error> onError = null)
+		public IEnumerator ImageRequestCoroutine(string url, Action<Texture2D> onComplete = null,
+			Action<Error> onError = null)
 		{
 			var webRequest = UnityWebRequestTexture.GetTexture(url);
 			yield return StartCoroutine(PerformWebRequest(webRequest, onComplete, onError));
 		}
-		
-		public IEnumerator ImageRequestCoroutine(string url, Action<Sprite> onComplete = null, Action<Error> onError = null)
+
+		public IEnumerator ImageRequestCoroutine(string url, Action<Sprite> onComplete = null,
+			Action<Error> onError = null)
 		{
 			yield return ImageRequestCoroutine(url, texture2D =>
 			{
@@ -38,4 +40,3 @@ namespace Xsolla.Core
 		}
 	}
 }
-

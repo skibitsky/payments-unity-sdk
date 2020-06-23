@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+﻿using UnityEngine.EventSystems;
 
 public class SimpleButtonLockDecorator : SimpleButton
 {
@@ -21,35 +18,40 @@ public class SimpleButtonLockDecorator : SimpleButton
 
 	public override void OnPointerDown(PointerEventData eventData)
 	{
-		if (!IsLocked()) {
+		if (!IsLocked())
+		{
 			base.OnPointerDown(eventData);
 		}
 	}
 
 	public override void OnPointerUp(PointerEventData eventData)
 	{
-		if (!IsLocked()) {
+		if (!IsLocked())
+		{
 			base.OnPointerUp(eventData);
 		}
 	}
 
 	public override void OnPointerEnter(PointerEventData eventData)
 	{
-		if (!IsLocked()) {
+		if (!IsLocked())
+		{
 			base.OnPointerEnter(eventData);
 		}
 	}
 
 	public override void OnPointerExit(PointerEventData eventData)
 	{
-		if (!IsLocked()) {
+		if (!IsLocked())
+		{
 			base.OnPointerExit(eventData);
 		}
 	}
 
 	public override void OnDrag(PointerEventData eventData)
 	{
-		if (!IsLocked()) {
+		if (!IsLocked())
+		{
 			base.OnDrag(eventData);
 		}
 	}

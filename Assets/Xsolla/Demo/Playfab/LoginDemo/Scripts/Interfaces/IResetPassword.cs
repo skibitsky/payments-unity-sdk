@@ -2,7 +2,7 @@
 
 public interface IResetPassword
 {
-    void ResetPassword();
-    Action OnSuccessfulResetPassword { get; set; }
-    Action<Xsolla.Core.Error> OnUnsuccessfulResetPassword { get; set; }
+	void ResetPassword();
+	Action OnSuccessfulResetPassword { get; set; }
+	Action<Xsolla.Core.Error> OnUnsuccessfulResetPassword { get; set; }
 }

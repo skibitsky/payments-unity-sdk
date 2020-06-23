@@ -7,13 +7,10 @@ using Xsolla.Core;
 public class SimpleButton : MonoBehaviour, ISimpleButton
 {
 	Image _image;
-	
-	[SerializeField]
-	Sprite normalStateSprite;
-	[SerializeField]
-	Sprite hoverStateSprite;
-	[SerializeField]
-	Sprite pressedStateSprite;
+
+	[SerializeField] Sprite normalStateSprite;
+	[SerializeField] Sprite hoverStateSprite;
+	[SerializeField] Sprite pressedStateSprite;
 
 	bool _isClickInProgress;
 
@@ -31,7 +28,7 @@ public class SimpleButton : MonoBehaviour, ISimpleButton
 	public virtual void OnDrag(PointerEventData eventData)
 	{
 	}
-	
+
 	public virtual void OnPointerEnter(PointerEventData eventData)
 	{
 		OnHover();
@@ -54,7 +51,8 @@ public class SimpleButton : MonoBehaviour, ISimpleButton
 	private void PerformClickEvent()
 	{
 		TimeSpan ts = DateTime.Now - lastClick;
-		if (ts.TotalMilliseconds > RateLimitMs) {
+		if (ts.TotalMilliseconds > RateLimitMs)
+		{
 			lastClick += ts;
 			onClick?.Invoke();
 		}
@@ -67,20 +65,20 @@ public class SimpleButton : MonoBehaviour, ISimpleButton
 			OnHover();
 			PerformClickEvent();
 		}
-		
+
 		_isClickInProgress = false;
-	}	
-	
+	}
+
 	protected virtual void OnNormal()
 	{
 		_image.sprite = normalStateSprite;
 	}
-	
+
 	protected virtual void OnHover()
 	{
 		_image.sprite = hoverStateSprite;
 	}
-	
+
 	protected virtual void OnPressed()
 	{
 		_image.sprite = pressedStateSprite;

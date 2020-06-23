@@ -5,4 +5,4 @@
 		public string sku;
 		public string imageUrl;
 	}
-}	
+}

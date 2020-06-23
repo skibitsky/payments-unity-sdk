@@ -20,7 +20,7 @@ public partial class ItemsTabControl : MonoBehaviour
 	{
 		_groupsController = FindObjectOfType<GroupsController>();
 		_itemsController = FindObjectOfType<ItemsController>();
-		
+
 		storeButton.gameObject.SetActive(true);
 		inventoryButton.gameObject.SetActive(true);
 
@@ -36,7 +36,8 @@ public partial class ItemsTabControl : MonoBehaviour
 		inventoryButton.Deselect();
 
 		var selectedGroup = _groupsController.GetSelectedGroup();
-		if (selectedGroup != null) {
+		if (selectedGroup != null)
+		{
 			_itemsController.ActivateContainer(selectedGroup.Id);
 		}
 	}

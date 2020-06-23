@@ -10,12 +10,14 @@ namespace Xsolla.Core
 {
 	public partial class WebRequestHelper : MonoSingleton<WebRequestHelper>
 	{
-		public void GetRequest<T>(string url, WebRequestHeader requestHeader = null, Action<T> onComplete = null, Action<Error> onError = null) where T : class
+		public void GetRequest<T>(string url, WebRequestHeader requestHeader = null, Action<T> onComplete = null,
+			Action<Error> onError = null) where T : class
 		{
 			StartCoroutine(GetRequestCor<T>(url, requestHeader, onComplete, onError));
 		}
 
-		IEnumerator GetRequestCor<T>(string url, WebRequestHeader requestHeader = null, Action<T> onComplete = null, Action<Error> onError = null) where T : class
+		IEnumerator GetRequestCor<T>(string url, WebRequestHeader requestHeader = null, Action<T> onComplete = null,
+			Action<Error> onError = null) where T : class
 		{
 			var webRequest = UnityWebRequest.Get(url);
 
@@ -29,4 +31,3 @@ namespace Xsolla.Core
 		}
 	}
 }
-

@@ -9,7 +9,7 @@ namespace Xsolla.ThirdParty.Playfab.Api.Catalog
 	public class PlayfabCatalog
 	{
 		private const string URL_CATALOG_GET_ITEMS = "https://{0}.playfabapi.com/Client/GetCatalogItems";
-		
+
 		/// <summary>
 		/// Retrieves the specified version of the title's catalog of virtual goods.
 		/// </summary>
@@ -19,8 +19,8 @@ namespace Xsolla.ThirdParty.Playfab.Api.Catalog
 		public void GetCatalog([NotNull] Action<CatalogItemsEntity> onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var url = PlayfabApi.GetFormattedUrl(URL_CATALOG_GET_ITEMS);
-			var headers = new List<WebRequestHeader> { PlayfabApi.Instance.GetAuthHeader() };
-			WebRequestHelper.Instance.PostRequest(url, new CatalogRequestEntity(), headers, 
+			var headers = new List<WebRequestHeader> {PlayfabApi.Instance.GetAuthHeader()};
+			WebRequestHelper.Instance.PostRequest(url, new CatalogRequestEntity(), headers,
 				(CatalogResponseEntity response) => onSuccess?.Invoke(response.data), onError);
 		}
 	}

@@ -2,9 +2,8 @@
 
 public class LoadingCircle : MonoBehaviour
 {
-	[SerializeField]
-	float rotateSpeed = 200f;
-	
+	[SerializeField] float rotateSpeed = 200f;
+
 	RectTransform _rectComponent;
 
 	void Start()

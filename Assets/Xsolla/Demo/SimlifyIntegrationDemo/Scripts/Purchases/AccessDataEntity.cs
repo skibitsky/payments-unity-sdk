@@ -11,6 +11,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 		{
 			public string value;
 		}
+
 		[Serializable]
 		public class UserId
 		{
@@ -19,12 +20,13 @@ namespace Xsolla.Demo.SimplifyIntegration
 			{
 				public bool allow_modify;
 			}
-			
+
 			public StringValue id;
 			public StringValue name;
 			public StringValue email;
 			public Country country;
 		}
+
 		[Serializable]
 		public class Settings
 		{
@@ -34,13 +36,14 @@ namespace Xsolla.Demo.SimplifyIntegration
 				public string size;
 				public string theme;
 			}
-			
+
 			public uint project_id;
 			public string currency;
 			public string mode;
 			public string external_id;
 			public UI ui;
 		}
+
 		[Serializable]
 		public class PurchaseItem
 		{
@@ -53,10 +56,10 @@ namespace Xsolla.Demo.SimplifyIntegration
 					public string sku;
 					public uint amount;
 				}
-				
+
 				public List<VirtualItem> items;
 			}
-			
+
 			public VirtualItems virtual_items;
 		}
 

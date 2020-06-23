@@ -15,11 +15,15 @@ namespace Xsolla.Core.Popup
 		public static GameObject CreateObjectFor(this GameObject prefab, GameObject parent)
 		{
 			GameObject result;
-			if (parent != null) {
+			if (parent != null)
+			{
 				result = Object.Instantiate(prefab, parent.transform);
-			} else {
+			}
+			else
+			{
 				result = Object.Instantiate(prefab);
 			}
+
 			result.name = prefab.name;
 			return result;
 		}
@@ -41,34 +45,38 @@ namespace Xsolla.Core.Popup
 			base.Init();
 
 			Canvas canvasComponent = GameObject.FindObjectOfType<Canvas>();
-			if (canvasComponent != null) {
+			if (canvasComponent != null)
+			{
 				canvas = canvasComponent.gameObject;
-			} else {
+			}
+			else
+			{
 				Debug.LogError("You try use 2D popup component, but Canvas object is missing!");
 			}
 		}
 
 		private GameObject CreateDefaultPopup(GameObject prefab, GameObject parent)
 		{
-			if (prefab == null) {
+			if (prefab == null)
+			{
 				Debug.LogError(
 					"You try create object, but prefab for it is null. " + Environment.NewLine +
 					"Check `PopupFactory` script for missing prefabs.");
 				return null;
 			}
+
 			return prefab.CreateObjectFor(parent).AddBackground(BackgroundPrefab);
 		}
 
-		public ISuccessPopup CreateSuccess() => CreateDefaultPopup(SuccessPopupPrefab, canvas)?.
-			GetComponent<SuccessPopup>();
+		public ISuccessPopup CreateSuccess() =>
+			CreateDefaultPopup(SuccessPopupPrefab, canvas)?.GetComponent<SuccessPopup>();
 
-		public IErrorPopup CreateError() => CreateDefaultPopup(ErrorPopupPrefab, canvas)?.
-			GetComponent<ErrorPopup>();
+		public IErrorPopup CreateError() => CreateDefaultPopup(ErrorPopupPrefab, canvas)?.GetComponent<ErrorPopup>();
 
-		public IConfirmationPopup CreateConfirmation() => CreateDefaultPopup(ConfirmPopupPrefab, canvas)?.
-			GetComponent<ConfirmationPopup>();
+		public IConfirmationPopup CreateConfirmation() =>
+			CreateDefaultPopup(ConfirmPopupPrefab, canvas)?.GetComponent<ConfirmationPopup>();
 
-		public IConfirmationCodePopup CreateCodeConfirmation() => CreateDefaultPopup(ConfirmCodePopupPrefab, canvas)?.
-			GetComponent<ConfirmationCodePopup>();
+		public IConfirmationCodePopup CreateCodeConfirmation() => CreateDefaultPopup(ConfirmCodePopupPrefab, canvas)
+			?.GetComponent<ConfirmationCodePopup>();
 	}
 }

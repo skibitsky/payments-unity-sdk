@@ -7,7 +7,7 @@ using Xsolla.Core;
 public class InventoryItemUI : MonoBehaviour
 {
 	private const int PLAYFAB_API_CONSUME_ITEMS_LIMIT = 25;
-	
+
 	[SerializeField] private Image itemImage;
 	[SerializeField] private GameObject loadingCircle;
 	[SerializeField] private Text itemName;
@@ -15,7 +15,7 @@ public class InventoryItemUI : MonoBehaviour
 	[SerializeField] private GameObject itemQuantityImage;
 	[SerializeField] private Text itemQuantityText;
 	[SerializeField] private ConsumeButton consumeButton;
-	
+
 	private InventoryItemModel _itemInformation;
 	private CatalogVirtualItemModel _catalogItem;
 	private IStoreDemoImplementation _demoImplementation;
@@ -35,11 +35,11 @@ public class InventoryItemUI : MonoBehaviour
 		itemName.text = _itemInformation.Name;
 		if (_itemInformation.RemainingUses == null)
 		{
-			if(itemQuantityImage != null)
+			if (itemQuantityImage != null)
 				itemQuantityImage.SetActive(false);
 			else
 			{
-				if(itemQuantityText != null)
+				if (itemQuantityText != null)
 					itemQuantityText.text = string.Empty;
 			}
 		}
@@ -48,7 +48,7 @@ public class InventoryItemUI : MonoBehaviour
 
 		if (_catalogItem == null) return;
 		itemDescription.text = _catalogItem.Description;
-		if(!string.IsNullOrEmpty(_catalogItem.ImageUrl))
+		if (!string.IsNullOrEmpty(_catalogItem.ImageUrl))
 			ImageLoader.Instance.GetImageAsync(_catalogItem.ImageUrl, LoadImageCallback);
 		else
 		{
@@ -67,9 +67,12 @@ public class InventoryItemUI : MonoBehaviour
 
 	private void RefreshConsumeButton()
 	{
-		if (_itemInformation.IsConsumable) {
+		if (_itemInformation.IsConsumable)
+		{
 			EnableConsumeButton();
-		} else {
+		}
+		else
+		{
 			DisableConsumeButton();
 		}
 	}
@@ -91,7 +94,8 @@ public class InventoryItemUI : MonoBehaviour
 
 	private void Counter_ValueChanged(int newValue)
 	{
-		if(newValue > _itemInformation.RemainingUses || newValue > PLAYFAB_API_CONSUME_ITEMS_LIMIT) {
+		if (newValue > _itemInformation.RemainingUses || newValue > PLAYFAB_API_CONSUME_ITEMS_LIMIT)
+		{
 			StartCoroutine(DecreaseConsumeQuantityCoroutine());
 		}
 	}
@@ -106,7 +110,7 @@ public class InventoryItemUI : MonoBehaviour
 	{
 		loadingCircle.SetActive(true);
 		DisableConsumeButton();
-		_demoImplementation.ConsumeInventoryItem(_itemInformation, (uint) consumeButton.counter.GetValue(), 
+		_demoImplementation.ConsumeInventoryItem(_itemInformation, (uint) consumeButton.counter.GetValue(),
 			_ => ConsumeItemsSuccess(), _ => ConsumeItemsFailed());
 	}
 

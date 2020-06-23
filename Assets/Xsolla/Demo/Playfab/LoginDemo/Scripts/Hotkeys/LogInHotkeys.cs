@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class LogInHotkeys : MonoBehaviour
 {
-    public event Action EnterKeyPressedEvent;
-    public event Action TabKeyPressedEvent;
+	public event Action EnterKeyPressedEvent;
+	public event Action TabKeyPressedEvent;
 
 	private void Start()
 	{

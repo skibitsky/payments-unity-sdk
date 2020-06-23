@@ -10,12 +10,11 @@ namespace Xsolla.Core
 			using (new EditorGUILayout.VerticalScope("box"))
 			{
 				GUILayout.Label("Simplify integration settings", EditorStyles.boldLabel);
-				XsollaSettings.SimplifyProjectId = (uint)EditorGUILayout.IntField(
-					new GUIContent("Xsolla Publisher project id"),  (int)XsollaSettings.SimplifyProjectId);
+				XsollaSettings.SimplifyProjectId = (uint) EditorGUILayout.IntField(
+					new GUIContent("Xsolla Publisher project id"), (int) XsollaSettings.SimplifyProjectId);
 			}
 
 			EditorGUILayout.Space();
 		}
 	}
 }
-

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HotkeyCoroutine : MonoBehaviour
 {
-    public event Action KeyPressedEvent;
+	public event Action KeyPressedEvent;
 	private KeyCode _keyCode;
 	private float _timeout;
 	private Coroutine _coroutine;
@@ -23,7 +23,7 @@ public class HotkeyCoroutine : MonoBehaviour
 	{
 		m_isLocked = true;
 	}
-	
+
 	public static void Unlock()
 	{
 		m_isLocked = false;
@@ -51,14 +51,16 @@ public class HotkeyCoroutine : MonoBehaviour
 
 	void startCoroutine()
 	{
-		if (_coroutine == null) {
+		if (_coroutine == null)
+		{
 			_coroutine = StartCoroutine(SomeHotkeyCoroutine());
 		}
 	}
 
 	void stopCoroutine()
 	{
-		if (_coroutine != null) {
+		if (_coroutine != null)
+		{
 			StopCoroutine(_coroutine);
 			_coroutine = null;
 		}
@@ -66,10 +68,11 @@ public class HotkeyCoroutine : MonoBehaviour
 
 	IEnumerator SomeHotkeyCoroutine()
 	{
-		while (true) {
+		while (true)
+		{
 			yield return new WaitForSeconds(_timeout);
 			yield return new WaitUntil(() => Input.GetKeyDown(_keyCode));
-			if(!m_isLocked)
+			if (!m_isLocked)
 				KeyPressedEvent?.Invoke();
 		}
 	}

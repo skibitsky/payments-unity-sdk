@@ -26,19 +26,19 @@ public class UserInventory : MonoSingleton<UserInventory>
 		{
 			Balance = new List<VirtualCurrencyBalanceModel>();
 			UpdateVirtualCurrencyBalanceEvent?.Invoke(Balance);
-			
+
 			Items = new List<InventoryItemModel>();
 			UpdateItemsEvent?.Invoke(Items);
-			
+
 			return;
 		}
-		
+
 		_demoImplementation.GetVirtualCurrencyBalance(balance =>
 		{
 			Balance = balance;
 			UpdateVirtualCurrencyBalanceEvent?.Invoke(Balance);
 		}, onError);
-		
+
 		_demoImplementation.GetInventoryItems(items =>
 		{
 			Items = items;

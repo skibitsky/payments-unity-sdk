@@ -3,7 +3,8 @@
 namespace Xsolla.ThirdParty.Playfab.Api.Auth
 {
 	[Serializable]
-	public class PlayfabUserRegistrationResponseEntity : PlayfabResponseEntity<PlayfabUserRegistrationResponseEntity.Payload>
+	public class
+		PlayfabUserRegistrationResponseEntity : PlayfabResponseEntity<PlayfabUserRegistrationResponseEntity.Payload>
 	{
 		[Serializable]
 		public class Payload

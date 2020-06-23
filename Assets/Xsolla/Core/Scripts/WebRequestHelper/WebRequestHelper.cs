@@ -14,13 +14,13 @@ namespace Xsolla.Core
 		{
 			return _requests.Count > 0;
 		}
-		
+
 		public void StopAll()
 		{
 			_requests.ForEach(r => r.Dispose());
 			_requests.Clear();
 		}
-		
+
 		protected override void OnDestroy()
 		{
 			StopAll();
@@ -34,7 +34,7 @@ namespace Xsolla.Core
 			webRequest.disposeUploadHandlerOnDispose = true;
 			webRequest.disposeCertificateHandlerOnDispose = true;
 			_requests.Add(webRequest);
-			
+
 			yield return StartCoroutine(SendWebRequest(webRequest));
 			try
 			{
@@ -42,12 +42,12 @@ namespace Xsolla.Core
 			}
 			catch (Exception e)
 			{
-				Debug.LogError($"{webRequest.uri} request process failed: {e.Message}" + 
+				Debug.LogError($"{webRequest.uri} request process failed: {e.Message}" +
 				               Environment.NewLine + $"Stack trace: {e.StackTrace}");
 			}
 			finally
 			{
-				_requests.Remove(webRequest);	
+				_requests.Remove(webRequest);
 			}
 		}
 
@@ -57,19 +57,22 @@ namespace Xsolla.Core
 				() => ProcessRequest(webRequest, onComplete, onError));
 		}
 
-		private IEnumerator PerformWebRequest(UnityWebRequest webRequest, Action<string> onComplete, Action<Error> onError)
+		private IEnumerator PerformWebRequest(UnityWebRequest webRequest, Action<string> onComplete,
+			Action<Error> onError)
 		{
 			yield return InternalPerformWebRequest(webRequest,
 				() => ProcessRequest(webRequest, onComplete, onError));
 		}
 
-		private IEnumerator PerformWebRequest<T>(UnityWebRequest webRequest, Action<T> onComplete, Action<Error> onError) where T : class
+		private IEnumerator PerformWebRequest<T>(UnityWebRequest webRequest, Action<T> onComplete,
+			Action<Error> onError) where T : class
 		{
 			yield return InternalPerformWebRequest(webRequest,
 				() => ProcessRequest(webRequest, onComplete, onError));
 		}
-		
-		private IEnumerator PerformWebRequest(UnityWebRequest webRequest, Action<Texture2D> onComplete, Action<Error> onError)
+
+		private IEnumerator PerformWebRequest(UnityWebRequest webRequest, Action<Texture2D> onComplete,
+			Action<Error> onError)
 		{
 			yield return InternalPerformWebRequest(webRequest,
 				() => ProcessRequest(webRequest, onComplete, onError));
@@ -85,4 +88,3 @@ namespace Xsolla.Core
 		}
 	}
 }
-

@@ -31,26 +31,34 @@ public class ValueCounterVisibility : MonoBehaviour, IPointerEnterHandler, IPoin
 		StartCoroutine(ChangeSizeCoroutine(consumeText, targetTextWidth, maxWidth));
 		StartCoroutine(ChangeSizeCoroutine(valueCounter, targetCounterWidth, maxWidth));
 
-		while (true) {
+		while (true)
+		{
 			yield return new WaitForEndOfFrame();
 
-			if(visible) {
-				if (valueCounter.GetWidth() > visibleWidthLimit) {
+			if (visible)
+			{
+				if (valueCounter.GetWidth() > visibleWidthLimit)
+				{
 					break;
 				}
-			}else {
-				if (valueCounter.GetWidth() < visibleWidthLimit) {
+			}
+			else
+			{
+				if (valueCounter.GetWidth() < visibleWidthLimit)
+				{
 					break;
 				}
 			}
 		}
+
 		valueCounter.gameObject.SetActive(visible);
 	}
 
 	IEnumerator ChangeSizeCoroutine(HorizontalSizeChanger sizeChanger, float newValue, float maxSize)
 	{
 		float step = maxSize * 0.01F;
-		while (true) {
+		while (true)
+		{
 			yield return new WaitForEndOfFrame();
 			if (!ChangeSize(sizeChanger, newValue, step))
 				break;
@@ -62,11 +70,14 @@ public class ValueCounterVisibility : MonoBehaviour, IPointerEnterHandler, IPoin
 		float width = sizeChanger.GetWidth();
 		float delta = newSize - width;
 
-		if (Mathf.Abs(delta) > step) {
+		if (Mathf.Abs(delta) > step)
+		{
 			delta *= Speed * Time.deltaTime;
 			sizeChanger.SetWidth(width + delta);
 			return true;
-		} else {
+		}
+		else
+		{
 			sizeChanger.SetWidth(newSize);
 			return false;
 		}

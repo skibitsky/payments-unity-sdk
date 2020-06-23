@@ -14,11 +14,10 @@ namespace Xsolla.Core
 		public override void OnInspectorGUI()
 		{
 			CommonSettings();
-			
+
 			PlayfabSettings();
 
 			SimplifyIntegrationSettings();
 		}
 	}
 }
-

@@ -5,7 +5,9 @@ using Xsolla.Core;
 
 namespace Xsolla.Demo.SimplifyIntegration
 {
-	public partial class SimplifyDemoImplementation : MonoSingleton<SimplifyDemoImplementation>, IStoreDemoImplementation
+	public partial class SimplifyDemoImplementation : 
+		MonoSingleton<SimplifyDemoImplementation>,
+		IStoreDemoImplementation
 	{
 		private List<TransactionCache> _transactions;
 
@@ -14,7 +16,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 			_transactions = LoadUserData<List<TransactionCache>>(SimplifyDemoConstants.USER_TRANSACTIONS)
 			                ?? new List<TransactionCache>();
 			_transactions = _transactions.Where(
-					t => t.projectId.Equals(XsollaSettings.SimplifyProjectId.ToString())).ToList();
+				t => t.projectId.Equals(XsollaSettings.SimplifyProjectId.ToString())).ToList();
 			SaveUserData(SimplifyDemoConstants.USER_TRANSACTIONS, _transactions);
 		}
 

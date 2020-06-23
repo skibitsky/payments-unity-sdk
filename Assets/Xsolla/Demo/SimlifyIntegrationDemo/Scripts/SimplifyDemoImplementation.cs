@@ -4,14 +4,16 @@ using Xsolla.Core;
 
 namespace Xsolla.Demo.SimplifyIntegration
 {
-	public partial class SimplifyDemoImplementation : MonoSingleton<SimplifyDemoImplementation>, IStoreDemoImplementation
+	public partial class SimplifyDemoImplementation :
+		MonoSingleton<SimplifyDemoImplementation>,
+		IStoreDemoImplementation
 	{
 		public override void Init()
 		{
 			base.Init();
 			InitPurchases();
 		}
-		
+
 		private Action<Error> GetErrorCallback(Action<Error> onError)
 		{
 			return error =>
@@ -36,6 +38,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 				PlayerPrefs.DeleteKey(key);
 				result = default;
 			}
+
 			return result;
 		}
 

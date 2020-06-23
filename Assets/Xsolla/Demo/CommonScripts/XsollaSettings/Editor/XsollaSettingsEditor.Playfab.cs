@@ -10,11 +10,11 @@ namespace Xsolla.Core
 			using (new EditorGUILayout.VerticalScope("box"))
 			{
 				GUILayout.Label("Playfab Settings", EditorStyles.boldLabel);
-				XsollaSettings.PlayfabTitleId = EditorGUILayout.TextField(new GUIContent("Playfab title id"),  XsollaSettings.PlayfabTitleId);
+				XsollaSettings.PlayfabTitleId = EditorGUILayout.TextField(new GUIContent("Playfab title id"),
+					XsollaSettings.PlayfabTitleId);
 			}
-			
+
 			EditorGUILayout.Space();
 		}
 	}
 }
-

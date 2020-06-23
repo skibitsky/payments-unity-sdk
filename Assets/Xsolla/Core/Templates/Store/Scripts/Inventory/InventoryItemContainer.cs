@@ -8,7 +8,7 @@ public class InventoryItemContainer : MonoBehaviour, IContainer
 
 	private List<GameObject> _items;
 	private IStoreDemoImplementation _demoImplementation;
-	
+
 	private void Awake()
 	{
 		_items = new List<GameObject>();
@@ -30,13 +30,13 @@ public class InventoryItemContainer : MonoBehaviour, IContainer
 		ClearItems();
 		items.ForEach(AddItem);
 	}
-	
+
 	private void ClearItems()
 	{
 		_items.ForEach(Destroy);
 		_items.Clear();
 	}
-	
+
 	private void AddItem(InventoryItemModel itemInformation)
 	{
 		var newItem = Instantiate(itemPrefab, itemParent);

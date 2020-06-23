@@ -5,11 +5,14 @@ using UnityEngine;
 public class VirtualCurrencyContainer : MonoBehaviour
 {
 	public GameObject virtualCurrencyBalancePrefab;
-	private Dictionary<string, VirtualCurrencyBalanceUI> _currencies = new Dictionary<string, VirtualCurrencyBalanceUI>();
+
+	private Dictionary<string, VirtualCurrencyBalanceUI> _currencies =
+		new Dictionary<string, VirtualCurrencyBalanceUI>();
 
 	private void Awake()
 	{
-		if(virtualCurrencyBalancePrefab == null) {
+		if (virtualCurrencyBalancePrefab == null)
+		{
 			Debug.LogAssertion("VirtualCurrencyBalancePrefab is missing!");
 			Destroy(gameObject);
 		}
@@ -19,19 +22,19 @@ public class VirtualCurrencyContainer : MonoBehaviour
 	{
 		_currencies.Values.ToList().ForEach(c =>
 		{
-			if(c.gameObject != null)
+			if (c.gameObject != null)
 				Destroy(c.gameObject);
 		});
 		List<CatalogVirtualCurrencyModel> uniqueItems = new List<CatalogVirtualCurrencyModel>();
 		items.ForEach(i =>
 		{
-			if(uniqueItems.Count(u => u.CurrencySku.Equals(i.CurrencySku)) == 0)
+			if (uniqueItems.Count(u => u.CurrencySku.Equals(i.CurrencySku)) == 0)
 				uniqueItems.Add(i);
 		});
 		_currencies.Clear();
 		uniqueItems.ForEach(i => AddCurrency(i));
 	}
-	
+
 	private VirtualCurrencyBalanceUI AddCurrency(CatalogVirtualCurrencyModel item)
 	{
 		if (_currencies.ContainsKey(item.CurrencySku)) return _currencies[item.CurrencySku];
@@ -42,12 +45,12 @@ public class VirtualCurrencyContainer : MonoBehaviour
 		_currencies.Add(item.CurrencySku, balanceUi);
 		return balanceUi;
 	}
-	
+
 	public void SetCurrenciesBalance(List<VirtualCurrencyBalanceModel> balance)
 	{
 		balance.ForEach(SetCurrencyBalance);
 	}
-	
+
 	private void SetCurrencyBalance(VirtualCurrencyBalanceModel balance)
 	{
 		AddCurrency(new CatalogVirtualCurrencyModel

@@ -1,5 +1,5 @@
 ﻿public interface IPage
 {
-    void Open();
-    void Close();
+	void Open();
+	void Close();
 }

@@ -25,6 +25,7 @@ public static class AuthTokenHelper
 			token = null;
 			return false;
 		}
+
 		token = json.DeserializeTo<AuthToken.Playfab>(false);
 		if (token == null || token.IsExpired())
 		{
@@ -32,6 +33,7 @@ public static class AuthTokenHelper
 			token = null;
 			return false;
 		}
+
 		return true;
 	}
 }

@@ -10,17 +10,20 @@ namespace Xsolla.Core
 {
 	public partial class WebRequestHelper : MonoSingleton<WebRequestHelper>
 	{
-		public void PutRequest<T>(string url, T jsonObject, WebRequestHeader requestHeader, Action onComplete = null, Action<Error> onError = null) where T: class
+		public void PutRequest<T>(string url, T jsonObject, WebRequestHeader requestHeader, Action onComplete = null,
+			Action<Error> onError = null) where T : class
 		{
 			StartCoroutine(PutRequestCor(url, jsonObject, requestHeader, onComplete, onError));
 		}
 
-		IEnumerator PutRequestCor<T>(string url, T jsonObject, WebRequestHeader requestHeader, Action onComplete = null, Action<Error> onError = null) where T: class
+		IEnumerator PutRequestCor<T>(string url, T jsonObject, WebRequestHeader requestHeader, Action onComplete = null,
+			Action<Error> onError = null) where T : class
 		{
-			UnityWebRequest webRequest = new UnityWebRequest(url, "PUT") {
+			UnityWebRequest webRequest = new UnityWebRequest(url, "PUT")
+			{
 				downloadHandler = new DownloadHandlerBuffer()
 			};
-			
+
 			AttachBodyToPutRequest(webRequest, jsonObject);
 			AttachHeadersToPutRequest(webRequest, requestHeader);
 
@@ -29,10 +32,11 @@ namespace Xsolla.Core
 
 		private void AttachBodyToPutRequest(UnityWebRequest webRequest, object jsonObject)
 		{
-			if (jsonObject != null) {
+			if (jsonObject != null)
+			{
 				string jsonData = JsonConvert.SerializeObject(jsonObject).Replace('\n', ' ');
 				byte[] body = new UTF8Encoding().GetBytes(jsonData);
-				webRequest.uploadHandler = (UploadHandler)new UploadHandlerRaw(body);
+				webRequest.uploadHandler = (UploadHandler) new UploadHandlerRaw(body);
 			}
 		}
 
@@ -41,10 +45,10 @@ namespace Xsolla.Core
 			AddOptionalHeadersTo(webRequest);
 			AddContentTypeHeaderTo(webRequest);
 
-			if (requestHeader != null) {
+			if (requestHeader != null)
+			{
 				webRequest.SetRequestHeader(requestHeader.Name, requestHeader.Value);
 			}
 		}
 	}
 }
-

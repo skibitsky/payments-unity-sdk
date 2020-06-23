@@ -9,7 +9,7 @@ public class HorizontalSizeChanger : MonoBehaviour
 	private void Awake()
 	{
 		rectTransform = GetComponent<RectTransform>();
- 	}
+	}
 
 	public void SetWidth(float value)
 	{

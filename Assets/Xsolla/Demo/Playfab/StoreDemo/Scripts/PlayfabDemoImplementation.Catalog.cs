@@ -13,11 +13,12 @@ namespace Xsolla.Demo.Store
 	public partial class PlayfabDemoImplementation : MonoSingleton<PlayfabDemoImplementation>, IStoreDemoImplementation
 	{
 		private const float PLAYFAB_VIRTUAL_CURRENCY_ACCRUAL_TIMEOUT = 3.0F;
-		
+
 		private List<CatalogItemEntity> _catalog;
 		private Coroutine _catalogCoroutine;
-		
-		public void GetCatalogVirtualItems([NotNull] Action<List<CatalogVirtualItemModel>> onSuccess, [CanBeNull] Action<Error> onError = null)
+
+		public void GetCatalogVirtualItems([NotNull] Action<List<CatalogVirtualItemModel>> onSuccess,
+			[CanBeNull] Action<Error> onError = null)
 		{
 			StartCoroutine(CatalogRequestCoroutine(catalog =>
 			{
@@ -34,7 +35,8 @@ namespace Xsolla.Demo.Store
 			}, onError));
 		}
 
-		public void GetCatalogVirtualCurrencies([NotNull] Action<List<CatalogVirtualCurrencyModel>> onSuccess, [CanBeNull] Action<Error> onError = null)
+		public void GetCatalogVirtualCurrencies([NotNull] Action<List<CatalogVirtualCurrencyModel>> onSuccess,
+			[CanBeNull] Action<Error> onError = null)
 		{
 			StartCoroutine(CatalogRequestCoroutine(catalog =>
 			{
@@ -52,17 +54,21 @@ namespace Xsolla.Demo.Store
 				}).ToList());
 			}, onError));
 		}
-		
-		private IEnumerator CatalogRequestCoroutine(Action<List<CatalogItemEntity>> callback, [CanBeNull] Action<Error> onError = null)
+
+		private IEnumerator CatalogRequestCoroutine(Action<List<CatalogItemEntity>> callback,
+			[CanBeNull] Action<Error> onError = null)
 		{
 			if (_catalog == null)
 			{
-				if (_catalogCoroutine == null) {
+				if (_catalogCoroutine == null)
+				{
 					PlayfabApi.Catalog.GetCatalog(c => _catalog = c.Catalog, GetErrorCallback(onError));
 				}
+
 				_catalogCoroutine = StartCoroutine(WaitCatalogCoroutine());
 				yield return _catalogCoroutine;
 			}
+
 			callback?.Invoke(_catalog);
 		}
 

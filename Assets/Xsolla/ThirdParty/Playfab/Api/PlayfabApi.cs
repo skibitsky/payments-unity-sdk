@@ -12,7 +12,7 @@ namespace Xsolla.ThirdParty.Playfab.Api
 	public class PlayfabApi : MonoSingleton<PlayfabApi>
 	{
 		public AuthToken Token { get; set; }
-		
+
 		public static PlayfabAuth Auth = new PlayfabAuth();
 		public static PlayfabCatalog Catalog = new PlayfabCatalog();
 		public static PlayfabInventory Inventory = new PlayfabInventory();
@@ -26,8 +26,8 @@ namespace Xsolla.ThirdParty.Playfab.Api
 
 		public WebRequestHeader GetAuthHeader()
 		{
-			return !(Token is AuthToken.Playfab token) 
-				? null 
+			return !(Token is AuthToken.Playfab token)
+				? null
 				: new WebRequestHeader {Name = "X-Authentication", Value = token.SessionTicket};
 		}
 

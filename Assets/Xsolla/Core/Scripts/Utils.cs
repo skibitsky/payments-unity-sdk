@@ -6,7 +6,6 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using UnityEngine;
 
-
 namespace Xsolla.Core
 {
 	public static class Utils
@@ -31,6 +30,7 @@ namespace Xsolla.Core
 				Debug.LogError($"Can't serialize object! Exception: {e.Message}");
 				json = string.Empty;
 			}
+
 			return json;
 		}
 
@@ -48,9 +48,10 @@ namespace Xsolla.Core
 				Debug.LogError($"Can't deserialize json = {json} !!! Exception: {e.Message}");
 				result = default;
 			}
+
 			return result;
 		}
-    
+
 		private static JsonSerializerSettings GetJsonSettings()
 		{
 			return new JsonSerializerSettings
@@ -62,7 +63,7 @@ namespace Xsolla.Core
 				TypeNameAssemblyFormat = FormatterAssemblyStyle.Full
 			};
 		}
-    
+
 		private class UnderscorePropertyNamesContractResolver : DefaultContractResolver
 		{
 			protected override string ResolvePropertyName(string propertyName)
@@ -70,5 +71,5 @@ namespace Xsolla.Core
 				return Regex.Replace(propertyName, "_", "");
 			}
 		}
-	}	
+	}
 }

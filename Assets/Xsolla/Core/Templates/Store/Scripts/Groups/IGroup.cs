@@ -2,15 +2,9 @@
 
 public interface IGroup
 {
-	string Id
-	{
-		get; set;
-	}
+	string Id { get; set; }
 
-	string Name
-	{
-		get; set;
-	}
+	string Name { get; set; }
 
 	Action<string> OnGroupClick { get; set; }
 

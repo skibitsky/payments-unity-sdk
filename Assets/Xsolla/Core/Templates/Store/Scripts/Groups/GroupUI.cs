@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class GroupUI : MonoBehaviour, IGroup
 {
-	[SerializeField]
-	MenuButton menuButton;
+	[SerializeField] MenuButton menuButton;
 
 	void Awake()
 	{

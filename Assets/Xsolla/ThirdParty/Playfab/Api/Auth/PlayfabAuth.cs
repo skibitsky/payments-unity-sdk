@@ -10,7 +10,7 @@ namespace Xsolla.ThirdParty.Playfab.Api.Auth
 		private const string URL_USER_REGISTRATION = "https://{0}.playfabapi.com/Client/RegisterPlayFabUser";
 		private const string URL_USER_SIGNIN = "https://{0}.playfabapi.com/Client/LoginWithPlayFab";
 		private const string URL_PASSWORD_RESET = "https://{0}.playfabapi.com/Client/SendAccountRecoveryEmail";
-		
+
 		/// <summary>
 		/// Registers a new Playfab user account.
 		/// </summary>
@@ -22,11 +22,12 @@ namespace Xsolla.ThirdParty.Playfab.Api.Auth
 		/// <param name="onError">Failed operation callback.</param>
 		/// <seealso cref="SignIn"/>
 		/// <seealso cref="ResetPassword"/>
-		public void Registration(string username, string password, string email, 
+		public void Registration(string username, string password, string email,
 			[NotNull] Action<PlayfabUserRegistrationResponseEntity> onSuccess, [CanBeNull] Action<Error> onError = null
-			)
+		)
 		{
-			var registrationData = new PlayfabUserRegistrationEntity(username, password, email, XsollaSettings.PlayfabTitleId);
+			var registrationData =
+				new PlayfabUserRegistrationEntity(username, password, email, XsollaSettings.PlayfabTitleId);
 			var url = PlayfabApi.GetFormattedUrl(URL_USER_REGISTRATION);
 			WebRequestHelper.Instance.PostRequest(url, registrationData, onSuccess, onError);
 		}
@@ -41,15 +42,17 @@ namespace Xsolla.ThirdParty.Playfab.Api.Auth
 		/// <param name="onError">Failed operation callback.</param>
 		/// <seealso cref="Registration"/>
 		/// <seealso cref="ResetPassword"/>
-		public void SignIn(string username, string password, 
+		public void SignIn(string username, string password,
 			[NotNull] Action<AuthToken.Playfab> onSuccess, [CanBeNull] Action<Error> onError = null)
 		{
 			var authData = new PlayfabUserAuthEntity(username, password, XsollaSettings.PlayfabTitleId);
 			var url = PlayfabApi.GetFormattedUrl(URL_USER_SIGNIN);
 
 			WebRequestHelper.Instance.PostRequest<PlayfabUserAuthResponseEntity, PlayfabUserAuthEntity>(
-				url, authData, response => {
-					onSuccess?.Invoke(new AuthToken.Playfab(response.SessionTicket, response.TokenExpiration)); 
+				url, authData,
+				response =>
+				{
+					onSuccess?.Invoke(new AuthToken.Playfab(response.SessionTicket, response.TokenExpiration));
 				}, onError);
 		}
 

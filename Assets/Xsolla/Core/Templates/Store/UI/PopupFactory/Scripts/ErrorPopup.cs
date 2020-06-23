@@ -7,20 +7,16 @@ namespace Xsolla.Core.Popup
 	[AddComponentMenu("Scripts/Xsolla.Core/Popup/ErrorPopup")]
 	public class ErrorPopup : MonoBehaviour, IErrorPopup
 	{
-		[SerializeField]
-		private Text Title;
-		[SerializeField]
-		private Text Message;
-		[SerializeField]
-		private SimpleTextButton Button;
-		[SerializeField]
-		private Text ButtonText;
+		[SerializeField] private Text Title;
+		[SerializeField] private Text Message;
+		[SerializeField] private SimpleTextButton Button;
+		[SerializeField] private Text ButtonText;
 
 		protected void Awake()
 		{
 			if (Button != null)
 			{
-				Button.onClick = () => Destroy(gameObject, 0.001F);	
+				Button.onClick = () => Destroy(gameObject, 0.001F);
 			}
 		}
 
@@ -32,7 +28,8 @@ namespace Xsolla.Core.Popup
 
 		IErrorPopup IErrorPopup.SetCallback(Action buttonPressed)
 		{
-			Button.onClick = () => {
+			Button.onClick = () =>
+			{
 				buttonPressed?.Invoke();
 				Destroy(gameObject, 0.001F);
 			};

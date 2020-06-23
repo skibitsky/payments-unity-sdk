@@ -11,15 +11,19 @@ namespace Xsolla.ThirdParty.Playfab.Api.Purchases
 			public string ItemId;
 			public uint Quantity;
 		}
+
 		public List<StartPurchaseRequestItem> Items;
 
 		public StartPurchaseRequestEntity(string itemId, uint quantity)
 		{
-			Items = new List<StartPurchaseRequestItem>{new StartPurchaseRequestItem
+			Items = new List<StartPurchaseRequestItem>
 			{
-				ItemId = itemId,
-				Quantity = quantity
-			}};
+				new StartPurchaseRequestItem
+				{
+					ItemId = itemId,
+					Quantity = quantity
+				}
+			};
 		}
 	}
 }
