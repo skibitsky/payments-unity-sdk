@@ -69,7 +69,7 @@ namespace Xsolla.Demo.Store
 		}
 
 		public void ConsumeInventoryItem(InventoryItemModel item, uint count, 
-			[CanBeNull] Action<InventoryItemModel> onSuccess = null,
+			[NotNull] Action<InventoryItemModel> onSuccess,
 			[CanBeNull] Action<InventoryItemModel> onFailed = null)
 		{
 			StoreDemoPopup.ConsumeConfirmation(item.Name, count, () => {

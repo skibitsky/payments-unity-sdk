@@ -19,7 +19,7 @@ public interface IStoreDemoImplementation
 	void GetVirtualCurrencyBalance([NotNull] Action<List<VirtualCurrencyBalanceModel>> onSuccess,
 		[CanBeNull] Action<Error> onError = null);
 
-	void ConsumeInventoryItem(InventoryItemModel item, uint count, [CanBeNull] Action<InventoryItemModel> onSuccess,
+	void ConsumeInventoryItem(InventoryItemModel item, uint count, [NotNull] Action<InventoryItemModel> onSuccess,
 		[CanBeNull] Action<InventoryItemModel> onFailed = null);
 
 	void PurchaseForRealMoney(CatalogItemModel item, [CanBeNull] Action<CatalogItemModel> onSuccess = null,

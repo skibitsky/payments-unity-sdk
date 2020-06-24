@@ -83,7 +83,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 			[CanBeNull] Action<Error> onError = null)
 		{
 			StopCoroutine(timeoutCoroutine);
-			yield return new WaitForSeconds(30.0F);
+			yield return new WaitForSeconds(10.0F);
 			HandleTransaction(transaction, timeoutCoroutine, onSuccess, onError);
 		}
 
@@ -130,8 +130,8 @@ namespace Xsolla.Demo.SimplifyIntegration
 			StoreDemoPopup.ShowError(new Error
 			{
 				errorMessage =
-					"Some transactions are not finished. " +
-					"Please, contact the support team for additional information."
+					"Some transactions you've made recently were not finished. " +
+					"Please, contact the support team."
 			}).SetTitle("");
 		}
 
