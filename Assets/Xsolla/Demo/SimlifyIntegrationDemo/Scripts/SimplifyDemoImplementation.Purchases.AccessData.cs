@@ -26,8 +26,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 			{
 				id = new AccessDataEntity.StringValue {value = "Some id"},
 				name = new AccessDataEntity.StringValue {value = "Username"},
-				email = new AccessDataEntity.StringValue {value = "userEmail@gmail.com"},
-				country = new AccessDataEntity.UserId.Country {value = "US", allow_modify = true}
+				email = new AccessDataEntity.StringValue {value = "userEmail@gmail.com"}
 			};
 		}
 
