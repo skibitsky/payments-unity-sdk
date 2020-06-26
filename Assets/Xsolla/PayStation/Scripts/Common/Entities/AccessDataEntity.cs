@@ -41,6 +41,7 @@ namespace Xsolla.PayStation
 			public string currency;
 			public string mode;
 			public string external_id;
+			public string xsolla_product_tag;
 			public UI ui;
 		}
 

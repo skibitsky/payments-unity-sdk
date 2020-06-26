@@ -11,6 +11,7 @@ namespace Xsolla.PayStation.Api.Playfab.Purchases
 			public string sku;
 			public uint amount;
 			public string orderId;
+			public string sdkTag;
 		}
 
 		public string FunctionName;

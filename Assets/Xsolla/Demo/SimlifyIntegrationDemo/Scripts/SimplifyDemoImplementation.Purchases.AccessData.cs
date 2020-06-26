@@ -38,6 +38,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 				currency = "USD",
 				mode = XsollaSettings.IsSandbox ? "sandbox" : null,
 				external_id = transactionId,
+				xsolla_product_tag = PayStationHelper.GetAdditionalInformation("simplified"),
 				ui = new AccessDataEntity.Settings.UI
 				{
 					size = "medium",

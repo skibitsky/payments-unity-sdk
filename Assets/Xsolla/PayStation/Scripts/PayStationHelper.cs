@@ -1,3 +1,4 @@
+using UnityEngine;
 using Xsolla.Core;
 
 namespace Xsolla.PayStation
@@ -44,6 +45,13 @@ namespace Xsolla.PayStation
 				? URL_PAYSTATION_UI_IN_SANDBOX_MODE_BY_ACCESS_DATA
 				: URL_PAYSTATION_UI_BY_ACCESS_DATA;
 			BrowserHelper.Instance.OpenPurchase(url, accessData, sandbox, XsollaSettings.InAppBrowserEnabled);
+		}
+
+		public static string GetAdditionalInformation(string integrationType)
+		{
+			return $"SDK-payments_ver-{Application.version.ToUpper()}_" +
+			       $"integr-{integrationType}_" +
+			       $"engine-unity_enginever_{Application.unityVersion.ToUpper()}";
 		}
 	}
 }

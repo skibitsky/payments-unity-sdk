@@ -82,7 +82,8 @@ namespace Xsolla.PayStation.Api.Playfab.Purchases
 				{
 					sku = itemId,
 					amount = ITEMS_QUANTITY_FOR_CLOUD_SCRIPT,
-					orderId = orderId
+					orderId = orderId,
+					sdkTag = PayStationHelper.GetAdditionalInformation("playfab")
 				}
 			}, headers, (CloudScriptResponseEntity response) => onSuccess?.Invoke(response.data), onError);
 		}
