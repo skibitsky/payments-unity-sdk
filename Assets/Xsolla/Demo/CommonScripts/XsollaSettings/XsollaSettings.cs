@@ -2,7 +2,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using Xsolla.Demo;
-using Xsolla.PayStation;
+using Xsolla.Payments;
 
 namespace Xsolla.Core
 {
