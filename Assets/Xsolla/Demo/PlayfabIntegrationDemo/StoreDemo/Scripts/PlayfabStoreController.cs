@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Xsolla.PayStation.Api.Playfab;
+using Xsolla.Payments.Api.Playfab;
 
 namespace Xsolla.Demo.Store
 {

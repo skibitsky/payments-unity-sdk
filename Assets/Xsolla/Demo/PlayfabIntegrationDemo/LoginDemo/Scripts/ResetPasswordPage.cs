@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Xsolla.Core;
-using Xsolla.PayStation.Api.Playfab;
+using Xsolla.Payments.Api.Playfab;
 
 public class ResetPasswordPage : Page, IResetPassword
 {

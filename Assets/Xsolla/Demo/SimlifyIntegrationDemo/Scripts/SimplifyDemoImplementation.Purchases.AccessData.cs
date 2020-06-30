@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Web;
 using Xsolla.Core;
-using Xsolla.PayStation;
+using Xsolla.Payments;
 
 namespace Xsolla.Demo.SimplifyIntegration
 {

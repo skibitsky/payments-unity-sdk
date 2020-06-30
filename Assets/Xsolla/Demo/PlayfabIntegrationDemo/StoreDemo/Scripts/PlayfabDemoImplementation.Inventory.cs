@@ -5,8 +5,8 @@ using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 using Xsolla.Core;
-using Xsolla.PayStation.Api.Playfab;
-using Xsolla.PayStation.Api.Playfab.Inventory;
+using Xsolla.Payments.Api.Playfab;
+using Xsolla.Payments.Api.Playfab.Inventory;
 
 namespace Xsolla.Demo.Store
 {

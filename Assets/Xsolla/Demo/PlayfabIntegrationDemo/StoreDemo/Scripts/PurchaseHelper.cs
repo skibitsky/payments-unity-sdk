@@ -3,7 +3,7 @@ using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
 using Xsolla.Core;
-using Xsolla.PayStation.Api.Playfab;
+using Xsolla.Payments.Api.Playfab;
 
 namespace Xsolla.Demo.Store
 {
@@ -20,7 +20,7 @@ namespace Xsolla.Demo.Store
 		{
 			PlayfabApi.Purchases.ItemPurchase(virtualItem.Sku, response =>
 			{
-				PayStation.PayStationHelper.OpenPurchaseByAccessToken(response.ProviderToken, XsollaSettings.IsSandbox);
+				Payments.PaymentsHelper.OpenPurchaseByAccessToken(response.ProviderToken, XsollaSettings.IsSandbox);
 				ProcessOrder(response.OrderId, () => onSuccess?.Invoke(virtualItem.Sku));
 			}, onError);
 		}
