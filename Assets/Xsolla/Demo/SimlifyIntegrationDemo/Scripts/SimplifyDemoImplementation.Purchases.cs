@@ -31,7 +31,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 			var transaction = CreateTransaction(item);
 			var accessData = CreateAccessData(XsollaSettings.SimplifyProjectId, transaction.transactionId, item);
 
-			PayStation.PayStationHelper.OpenPurchaseByAccessData(accessData, XsollaSettings.IsSandbox);
+			Payments.PaymentsHelper.OpenPurchaseByAccessData(accessData, XsollaSettings.IsSandbox);
 			var timeoutCoroutine = FailedTransactionNotification(transaction);
 			HandleTransaction(transaction, timeoutCoroutine, catalogItem =>
 			{

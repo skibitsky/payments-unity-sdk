@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Xsolla.Core;
 using Xsolla.Demo;
-using Xsolla.PayStation.Api.Playfab;
-using Xsolla.PayStation.Api.Playfab.Auth;
+using Xsolla.Payments.Api.Playfab;
+using Xsolla.Payments.Api.Playfab.Auth;
 
 public class SignUpPage : Page, ISignUp
 {

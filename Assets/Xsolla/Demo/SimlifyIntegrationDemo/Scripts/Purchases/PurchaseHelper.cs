@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using Xsolla.Core;
-using Xsolla.PayStation.Api.SimplifyIntegration;
+using Xsolla.Payments.Api.SimplifyIntegration;
 
 namespace Xsolla.Demo.SimplifyIntegration
 {
@@ -14,7 +14,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 		private readonly List<string> _stoppedTransactions = new List<string>();
 
 		/// <summary>
-		/// Polls Paystation every seconds to know when payment finished.
+		/// Polls API every seconds to know when payment finished.
 		/// </summary>
 		/// <param name="projectId">Project ID from your Publisher Account.</param>
 		/// <param name="transactionId">Unique identifier of created transaction.</param>

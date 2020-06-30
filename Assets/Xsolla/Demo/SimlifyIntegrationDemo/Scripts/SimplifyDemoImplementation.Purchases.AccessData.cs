@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Web;
 using Xsolla.Core;
-using Xsolla.PayStation;
+using Xsolla.Payments;
 
 namespace Xsolla.Demo.SimplifyIntegration
 {
@@ -38,6 +38,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 				currency = "USD",
 				mode = XsollaSettings.IsSandbox ? "sandbox" : null,
 				external_id = transactionId,
+				xsolla_product_tag = PayStationHelper.GetAdditionalInformation("simplified"),
 				ui = new AccessDataEntity.Settings.UI
 				{
 					size = "medium",

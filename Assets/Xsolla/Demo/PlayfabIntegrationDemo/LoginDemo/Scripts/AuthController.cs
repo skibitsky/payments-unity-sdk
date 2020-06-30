@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Xsolla.Core;
-using Xsolla.PayStation.Api.Playfab;
+using Xsolla.Payments.Api.Playfab;
 
 public class AuthController : MonoBehaviour
 {
