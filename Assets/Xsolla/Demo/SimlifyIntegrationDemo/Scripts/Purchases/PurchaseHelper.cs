@@ -41,6 +41,19 @@ namespace Xsolla.Demo.SimplifyIntegration
 			{
 				var status = response.status;
 				Debug.Log($"Order `{transactionId}` status is `{status}`!");
+				if (IsWrongProjectSettings(response))
+				{
+					onError?.Invoke(new Error
+					{
+						errorCode = response.http_status_code,
+						errorMessage = response.message
+					});
+					if (IsTheInGameBrowserOpen())
+					{
+						Destroy(BrowserHelper.Instance);
+					}
+					return;
+				}
 				CheckUserFlow(transactionId, status);
 				if (TransactionStatus.IsInProgress(status))
 				{
@@ -64,6 +77,12 @@ namespace Xsolla.Demo.SimplifyIntegration
 					}
 				}
 			}, onError);
+		}
+
+		private bool IsWrongProjectSettings(TransactionStatusResponse response)
+		{
+			if (response.http_status_code != 403) return false;
+			return !string.IsNullOrEmpty(response.message) && response.message.Contains("simplified integration");
 		}
 
 		private void CheckUserFlow(string transactionId, string status)

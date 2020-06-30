@@ -27,7 +27,7 @@ namespace Xsolla.Core
 			var result = string.IsNullOrEmpty(status) ? string.Empty : $"Request status: {status}. ";
 			result += string.IsNullOrEmpty(error) ? string.Empty : $"Error type: {error}. ";
 			result += errorCode == 0 ? string.Empty : $"Error code: {errorCode}. ";
-			result += string.IsNullOrEmpty(errorMessage) ? string.Empty : $"Error message: {errorMessage}.";
+			result += string.IsNullOrEmpty(errorMessage) ? string.Empty : $"Error message: {errorMessage}";
 			return result;
 		}
 	}
