@@ -17,7 +17,7 @@ namespace Xsolla.Core
 
 			PlayfabSettings();
 
-			SimplifyIntegrationSettings();
+			SimplifiedIntegrationSettings();
 		}
 	}
 }

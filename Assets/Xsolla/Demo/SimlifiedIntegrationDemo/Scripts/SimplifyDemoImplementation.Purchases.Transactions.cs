@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using Xsolla.Core;
 
-namespace Xsolla.Demo.SimplifyIntegration
+namespace Xsolla.Demo.SimplifiedIntegration
 {
-	public partial class SimplifyDemoImplementation : 
-		MonoSingleton<SimplifyDemoImplementation>,
+	public partial class SimplifiedDemoImplementation : 
+		MonoSingleton<SimplifiedDemoImplementation>,
 		IStoreDemoImplementation
 	{
 		private List<TransactionCache> _transactions;
 
 		private void LoadTransactions()
 		{
-			_transactions = LoadUserData<List<TransactionCache>>(SimplifyDemoConstants.USER_TRANSACTIONS)
+			_transactions = LoadUserData<List<TransactionCache>>(SimplifiedDemoConstants.USER_TRANSACTIONS)
 			                ?? new List<TransactionCache>();
 			_transactions = _transactions.Where(
-				t => t.projectId.Equals(XsollaSettings.SimplifyProjectId.ToString())).ToList();
-			SaveUserData(SimplifyDemoConstants.USER_TRANSACTIONS, _transactions);
+				t => t.projectId.Equals(XsollaSettings.SimplifiedProjectId.ToString())).ToList();
+			SaveUserData(SimplifiedDemoConstants.USER_TRANSACTIONS, _transactions);
 		}
 
 		private List<TransactionCache> GetAllTransactions() => _transactions;
@@ -32,14 +32,14 @@ namespace Xsolla.Demo.SimplifyIntegration
 				dateTime = DateTime.Now
 			};
 			_transactions.Add(cache);
-			SaveUserData(SimplifyDemoConstants.USER_TRANSACTIONS, _transactions);
+			SaveUserData(SimplifiedDemoConstants.USER_TRANSACTIONS, _transactions);
 			return cache;
 		}
 
 		private void ClearTransactionCache(TransactionCache cache)
 		{
 			_transactions.Remove(cache);
-			SaveUserData(SimplifyDemoConstants.USER_TRANSACTIONS, _transactions);
+			SaveUserData(SimplifiedDemoConstants.USER_TRANSACTIONS, _transactions);
 		}
 	}
 }

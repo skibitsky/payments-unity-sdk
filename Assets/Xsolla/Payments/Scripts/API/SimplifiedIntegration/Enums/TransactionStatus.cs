@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace Xsolla.Payments.Api.SimplifyIntegration
+namespace Xsolla.Payments.Api.SimplifiedIntegration
 {
 	public class TransactionStatus
 	{

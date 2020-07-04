@@ -3,10 +3,10 @@ using System.Web;
 using Xsolla.Core;
 using Xsolla.Payments;
 
-namespace Xsolla.Demo.SimplifyIntegration
+namespace Xsolla.Demo.SimplifiedIntegration
 {
-	public partial class SimplifyDemoImplementation : 
-		MonoSingleton<SimplifyDemoImplementation>,
+	public partial class SimplifiedDemoImplementation : 
+		MonoSingleton<SimplifiedDemoImplementation>,
 		IStoreDemoImplementation
 	{
 		private string CreateAccessData(uint projectId, string transactionId, CatalogItemModel item)

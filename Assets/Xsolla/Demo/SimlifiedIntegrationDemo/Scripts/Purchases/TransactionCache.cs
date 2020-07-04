@@ -1,6 +1,6 @@
 using System;
 
-namespace Xsolla.Demo.SimplifyIntegration
+namespace Xsolla.Demo.SimplifiedIntegration
 {
 	[Serializable]
 	public class TransactionCache

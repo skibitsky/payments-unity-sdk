@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using Xsolla.Core;
-using Xsolla.Payments.Api.SimplifyIntegration;
+using Xsolla.Payments.Api.SimplifiedIntegration;
 
-namespace Xsolla.Demo.SimplifyIntegration
+namespace Xsolla.Demo.SimplifiedIntegration
 {
 	public class PurchaseHelper : MonoSingleton<PurchaseHelper>
 	{
@@ -37,7 +37,7 @@ namespace Xsolla.Demo.SimplifyIntegration
 			// Wait 1 second before API polling
 			yield return new WaitForSeconds(1.0f);
 
-			SimplifyIntegrationApi.GetTransactionStatus(projectId, transactionId, response =>
+			SimplifiedIntegrationApi.GetTransactionStatus(projectId, transactionId, response =>
 			{
 				var status = response.status;
 				Debug.Log($"Order `{transactionId}` status is `{status}`!");

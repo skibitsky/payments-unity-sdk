@@ -1,10 +1,10 @@
-﻿namespace Xsolla.Demo.SimplifyIntegration
+﻿namespace Xsolla.Demo.SimplifiedIntegration
 {
-	public class SimplifyStoreController : StoreController
+	public class SimplifiedStoreController : StoreController
 	{
 		protected override IStoreDemoImplementation GetImplementation()
 		{
-			return SimplifyDemoImplementation.Instance;
+			return SimplifiedDemoImplementation.Instance;
 		}
 
 		protected override void InitStoreUi()
@@ -18,8 +18,8 @@
 		protected override void OnDestroy()
 		{
 			base.OnDestroy();
-			if (SimplifyDemoImplementation.IsExist)
-				Destroy(SimplifyDemoImplementation.Instance);
+			if (SimplifiedDemoImplementation.IsExist)
+				Destroy(SimplifiedDemoImplementation.Instance);
 		}
 	}
 }

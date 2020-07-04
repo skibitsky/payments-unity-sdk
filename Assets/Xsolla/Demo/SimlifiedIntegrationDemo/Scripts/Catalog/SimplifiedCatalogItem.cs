@@ -1,9 +1,9 @@
 using System;
 
-namespace Xsolla.Demo.SimplifyIntegration
+namespace Xsolla.Demo.SimplifiedIntegration
 {
     [Serializable]
-    public class SimplifyCatalogItem
+    public class SimplifiedCatalogItem
     {
         [Serializable]
         public class Price

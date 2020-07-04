@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: XsollaSettings
   m_EditorClassIdentifier: 
   playfabTitleId: 2915b
-  simplifyProjectId: 68789
+  simplifiedProjectId: 68789
   isSandbox: 1
   inAppBrowserEnabled: 1
   paystationTheme: 1

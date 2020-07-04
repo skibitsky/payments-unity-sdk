@@ -1,6 +1,6 @@
 using System;
 
-namespace Xsolla.Payments.Api.SimplifyIntegration
+namespace Xsolla.Payments.Api.SimplifiedIntegration
 {
     [Serializable]
     public class TransactionStatusResponse

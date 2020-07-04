@@ -7,7 +7,7 @@ using Xsolla.Core;
 public class MenuButton : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler,
 	IPointerUpHandler, IDragHandler
 {
-	Image _image;
+	[SerializeField] Image image;
 
 	[SerializeField] Text text;
 
@@ -34,7 +34,6 @@ public class MenuButton : MonoBehaviour, IPointerDownHandler, IPointerEnterHandl
 
 	void Awake()
 	{
-		_image = GetComponent<Image>();
 		lastClick = DateTime.MinValue;
 	}
 
@@ -138,25 +137,25 @@ public class MenuButton : MonoBehaviour, IPointerDownHandler, IPointerEnterHandl
 
 	protected virtual void OnNormal()
 	{
-		_image.sprite = normalStateSprite;
+		image.sprite = normalStateSprite;
 		text.color = normalStateTextColor;
 	}
 
 	protected virtual void OnHover()
 	{
-		_image.sprite = hoverStateSprite;
+		image.sprite = hoverStateSprite;
 		text.color = hoverStateTextColor;
 	}
 
 	protected virtual void OnPressed()
 	{
-		_image.sprite = pressedStateSprite;
+		image.sprite = pressedStateSprite;
 		text.color = pressedStateTextColor;
 	}
 
 	protected virtual void OnSelected()
 	{
-		_image.sprite = selectedStateSprite;
+		image.sprite = selectedStateSprite;
 		text.color = selectedStateTextColor;
 	}
 }
