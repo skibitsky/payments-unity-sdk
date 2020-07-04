@@ -16,7 +16,7 @@
       "type":"virtual_good",
       "display_name":"Xsolla Minigun",
       "description":"Just hold the trigger and praise Xsolla!",
-      "image_url":"https://cdn.xsolla.net/img/misc/images/3093eeb39d5ec7def3af6396607a30ba.png",
+      "image_url":"https://cdn3.xsolla.com/img/misc/images/ab733398d68dc1796a23e38802a28206.png",
       "price":{
             "currency": "USD",
             "amount": 29.990000
@@ -28,7 +28,7 @@
       "type":"virtual_good",
       "display_name":"Xsolla Swords",
       "description":"Honshu Boshin Wakizashi - Modern Tactical Samurai Sword",
-      "image_url":"https://cdn.xsolla.net/img/misc/images/ed1179ac76acf5e695bf0d9b8816e00c.png",
+      "image_url":"https://cdn3.xsolla.com/img/misc/images/f876c0fffebf9a7241de93a970d07f63.png",
       "price":{
             "currency": "USD",
             "amount": 20.000000
@@ -76,7 +76,7 @@
       "type":"virtual_good",
       "display_name":"Xsolla Lootbox",
       "description":"What hidden treasures will you find?",
-      "image_url":"https://cdn.xsolla.net/img/misc/images/9452770924475de851ac8129168c3e98.png",
+      "image_url":"https://cdn3.xsolla.com/img/misc/images/16e884ebe783db6cf60455e7a9652309.png",
       "price":{
             "currency": "USD",
             "amount": 9.990000
@@ -88,7 +88,7 @@
       "type":"virtual_good",
       "display_name":"Xsolla Shield",
       "description":"The Strategic Homeland Intervention",
-      "image_url":"https://cdn.xsolla.net/img/misc/images/cf8021e9bcd5eb25aaa8f7f72ff0311a.png",
+      "image_url":"https://cdn3.xsolla.com/img/misc/images/21fecc4579ddda2b0686c313313c874a.png",
       "price":{
             "currency": "USD",
             "amount": 9.990000
@@ -100,7 +100,7 @@
       "type":"virtual_good",
       "display_name":"Xsolla Rocket Launcher",
       "description":"Blast fools into outer space with the Rocket Launcher",
-      "image_url":"https://cdn.xsolla.net/img/misc/images/73f6060f23b0daac38ed345b1cc48a28.png",
+      "image_url":"https://cdn3.xsolla.com/img/misc/images/24f8159c6de2c3457cbfa0b1e93891e2.png",
       "price":{
             "currency": "USD",
             "amount": 19.990000
