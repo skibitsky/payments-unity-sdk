@@ -10,7 +10,6 @@ namespace Xsolla.Demo.Store
 		private const string URL_DOCUMENTATION = "https://developers.xsolla.com/sdk/";
 		private const string URL_DOCUMENTATION_PLAYFAB = "https://docs.microsoft.com/en-us/gaming/playfab/";
 		private const string URL_TEST_CARDS = "https://developers.xsolla.com/api/v2/pay-station/#api_payment_ui_test_cards";
-		private const string URL_REQUEST_INTEGRATION = "https://forms.gle/eYvFZaEaiSBmNsyT6";
 
 		public event Action<string> OpenUrlEvent;
 
@@ -19,7 +18,6 @@ namespace Xsolla.Demo.Store
 		[SerializeField] private GameObject paystationDocsButton;
 		[SerializeField] private GameObject playfabDocsButton;
 		[SerializeField] private GameObject testCardsButton;
-		[SerializeField] private GameObject requestIntegrationButton;
 
 		public void Init()
 		{
@@ -28,7 +26,6 @@ namespace Xsolla.Demo.Store
 			EnableInfoButton(paystationDocsButton, URL_DOCUMENTATION);
 			EnableInfoButton(playfabDocsButton, URL_DOCUMENTATION_PLAYFAB);
 			EnableInfoButton(testCardsButton, URL_TEST_CARDS);
-			EnableInfoButton(requestIntegrationButton, URL_REQUEST_INTEGRATION);
 		}
 
 		private void EnableInfoButton(GameObject go, string url)
