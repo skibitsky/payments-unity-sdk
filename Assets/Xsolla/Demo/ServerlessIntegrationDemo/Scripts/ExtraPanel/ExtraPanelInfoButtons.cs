@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Xsolla.Demo.SimplifiedIntegration
+namespace Xsolla.Demo.ServerlessIntegration
 {
 	public class ExtraPanelInfoButtons : MonoBehaviour
 	{

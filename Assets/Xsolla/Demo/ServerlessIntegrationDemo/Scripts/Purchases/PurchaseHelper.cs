@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using Xsolla.Core;
-using Xsolla.Payments.Api.SimplifiedIntegration;
+using Xsolla.Payments.Api.ServerlessIntegration;
 
-namespace Xsolla.Demo.SimplifiedIntegration
+namespace Xsolla.Demo.ServerlessIntegration
 {
 	public class PurchaseHelper : MonoSingleton<PurchaseHelper>
 	{
@@ -37,7 +37,7 @@ namespace Xsolla.Demo.SimplifiedIntegration
 			// Wait 1 second before API polling
 			yield return new WaitForSeconds(1.0f);
 
-			SimplifiedIntegrationApi.GetTransactionStatus(projectId, transactionId, response =>
+			ServerlessIntegrationApi.GetTransactionStatus(projectId, transactionId, response =>
 			{
 				var status = response.status;
 				Debug.Log($"Order `{transactionId}` status is `{status}`!");
@@ -82,7 +82,7 @@ namespace Xsolla.Demo.SimplifiedIntegration
 		private bool IsWrongProjectSettings(TransactionStatusResponse response)
 		{
 			if (response.http_status_code != 403) return false;
-			return !string.IsNullOrEmpty(response.message) && response.message.Contains("simplified integration");
+			return !string.IsNullOrEmpty(response.message) && response.message.Contains("serverless integration");
 		}
 
 		private void CheckUserFlow(string transactionId, string status)
