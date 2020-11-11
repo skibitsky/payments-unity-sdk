@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Xsolla/Demo/PlayfabIntegrationDemo/LoginDemo/Scenes/Login.unity
     guid: 9783d80efe9040743a89d5a918a67a79
-  - enabled: 1
+  - enabled: 0
     path: Assets/Xsolla/Demo/PlayfabIntegrationDemo/StoreDemo/Scenes/Store.unity
     guid: 6890665bc0f182c469b9d1b1ce062867
+  - enabled: 1
+    path: Assets/Xsolla/Demo/SimlifiedIntegrationDemo/Scenes/SimplifiedStore.unity
+    guid: 9f28ffb844b8f456386f840eabd0fd19
   m_configObjects: {}
