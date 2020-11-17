@@ -41,7 +41,7 @@ namespace Xsolla.Payments
 		/// <seealso cref="BrowserHelper"/>
 		public static void OpenPurchaseByAccessData(string accessData, bool sandbox)
 		{
-			var url = XsollaSettings.IsSandbox
+			var url = sandbox
 				? URL_PAYSTATION_UI_IN_SANDBOX_MODE_BY_ACCESS_DATA
 				: URL_PAYSTATION_UI_BY_ACCESS_DATA;
 			BrowserHelper.Instance.OpenPurchase(url, accessData, sandbox, XsollaSettings.InAppBrowserEnabled);
