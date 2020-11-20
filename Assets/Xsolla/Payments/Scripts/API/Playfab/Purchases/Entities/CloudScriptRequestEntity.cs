@@ -13,6 +13,7 @@ namespace Xsolla.Payments.Api.Playfab.Purchases
 			public string orderId;
 			public string sdkTag;
 			public string theme;
+			public bool sandbox;
 		}
 
 		public string FunctionName;

@@ -166,7 +166,7 @@ PrefabInstance:
     - target: {fileID: 3370420873519070097, guid: d1cdc5a8a7e9149949e16705e2853613,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.3
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3370420873519070097, guid: d1cdc5a8a7e9149949e16705e2853613,
         type: 3}
@@ -330,11 +330,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3092327604236563937}
     m_Modifications:
-    - target: {fileID: 6247839919388947446, guid: 707de30ff8f7647418323714a5cc38e6,
-        type: 3}
-      propertyPath: m_Name
-      value: AccountButtons
-      objectReference: {fileID: 0}
     - target: {fileID: 6247839919388947447, guid: 707de30ff8f7647418323714a5cc38e6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -439,6 +434,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247839919388947446, guid: 707de30ff8f7647418323714a5cc38e6,
+        type: 3}
+      propertyPath: m_Name
+      value: AccountButtons
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707de30ff8f7647418323714a5cc38e6, type: 3}

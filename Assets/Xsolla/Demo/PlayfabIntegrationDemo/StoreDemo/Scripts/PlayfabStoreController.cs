@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Xsolla.Core.Popup;
 using Xsolla.Payments.Api.Playfab;
 
 namespace Xsolla.Demo.Store
@@ -34,7 +35,9 @@ namespace Xsolla.Demo.Store
 		{
 			base.OnDestroy();
 			if (PlayfabDemoImplementation.IsExist)
-				Destroy(PlayfabDemoImplementation.Instance);
+				Destroy(PlayfabDemoImplementation.Instance.gameObject);
+			if (PopupFactory.IsExist)
+				Destroy(PopupFactory.Instance.gameObject);
 		}
 
 		protected override void InitStoreUi()

@@ -84,7 +84,8 @@ namespace Xsolla.Payments.Api.Playfab.Purchases
 					amount = ITEMS_QUANTITY_FOR_CLOUD_SCRIPT,
 					orderId = orderId,
 					sdkTag = PaymentsHelper.GetAdditionalInformation("playfab"),
-					theme = PaystationThemeHelper.ConvertToSettings(XsollaSettings.PaystationTheme)
+					theme = PaystationThemeHelper.ConvertToSettings(XsollaSettings.PaystationTheme),
+					sandbox = XsollaSettings.IsSandbox
 				}
 			}, headers, (CloudScriptResponseEntity response) => onSuccess?.Invoke(response.data), onError);
 		}
