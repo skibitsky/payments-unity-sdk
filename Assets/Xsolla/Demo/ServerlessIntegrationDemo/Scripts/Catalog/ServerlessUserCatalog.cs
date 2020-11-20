@@ -4,23 +4,23 @@ using System.Linq;
 using UnityEngine;
 using Xsolla.Core;
 
-namespace Xsolla.Demo.SimplifiedIntegration
+namespace Xsolla.Demo.ServerlessIntegration
 {
-    public class SimplifiedUserCatalog : MonoSingleton<SimplifiedUserCatalog>
+    public class ServerlessUserCatalog : MonoSingleton<ServerlessUserCatalog>
     {
         private const string CATALOG_FILE_NAME = "catalog";
         
-        public event Action<List<SimplifiedCatalogItem>> UpdateItemsEvent;
-        public event Action<List<SimplifiedCatalogItem>> UpdateVirtualCurrenciesEvent;
+        public event Action<List<ServerlessCatalogItem>> UpdateItemsEvent;
+        public event Action<List<ServerlessCatalogItem>> UpdateVirtualCurrenciesEvent;
 
-        private List<SimplifiedCatalogItem> _items = new List<SimplifiedCatalogItem>();
-        private List<SimplifiedCatalogItem> _currencies = new List<SimplifiedCatalogItem>();
+        private List<ServerlessCatalogItem> _items = new List<ServerlessCatalogItem>();
+        private List<ServerlessCatalogItem> _currencies = new List<ServerlessCatalogItem>();
 
         private string _catalog;
 
-        public void UpdateCatalog(Action<List<SimplifiedCatalogItem>> onSuccess = null, Action<Error> onError = null)
+        public void UpdateCatalog(Action<List<ServerlessCatalogItem>> onSuccess = null, Action<Error> onError = null)
         {
-            List<SimplifiedCatalogItem> catalog = GetCatalog();
+            List<ServerlessCatalogItem> catalog = GetCatalog();
             _items = catalog.Where(i => i.IsVirtualItem()).ToList();
             _currencies = catalog.Where(i => i.IsCurrency()).ToList();
             
@@ -29,21 +29,21 @@ namespace Xsolla.Demo.SimplifiedIntegration
             onSuccess?.Invoke(catalog);
         }
 
-        private List<SimplifiedCatalogItem> GetCatalog()
+        private List<ServerlessCatalogItem> GetCatalog()
         {
             if (string.IsNullOrEmpty(_catalog)) {
                 var catalog = (TextAsset)Resources.Load(CATALOG_FILE_NAME);
                 if (catalog == null)
                 {
                     Debug.LogAssertion($"Can not find or load catalog file: `{CATALOG_FILE_NAME}`");
-                    return new List<SimplifiedCatalogItem>();
+                    return new List<ServerlessCatalogItem>();
                 }
                 _catalog = catalog.text;
             }
             var json = _catalog;
             return string.IsNullOrEmpty(json) 
-                ? new List<SimplifiedCatalogItem>() 
-                : json.DeserializeTo<List<SimplifiedCatalogItem>>();
+                ? new List<ServerlessCatalogItem>() 
+                : json.DeserializeTo<List<ServerlessCatalogItem>>();
         }
     }
 }

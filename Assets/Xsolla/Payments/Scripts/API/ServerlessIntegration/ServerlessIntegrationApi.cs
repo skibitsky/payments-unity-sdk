@@ -2,9 +2,9 @@ using System;
 using System.Text;
 using Xsolla.Core;
 
-namespace Xsolla.Payments.Api.SimplifiedIntegration
+namespace Xsolla.Payments.Api.ServerlessIntegration
 {
-	public static class SimplifiedIntegrationApi
+	public static class ServerlessIntegrationApi
 	{
 		private const string URL_GET_TRANSACTION_STATUS =
 			"https://api.xsolla.com/merchant/projects/{0}/transactions/external/{1}/status";

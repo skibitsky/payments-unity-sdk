@@ -3,10 +3,10 @@ using System.Web;
 using Xsolla.Core;
 using Xsolla.Payments;
 
-namespace Xsolla.Demo.SimplifiedIntegration
+namespace Xsolla.Demo.ServerlessIntegration
 {
-	public partial class SimplifiedDemoImplementation : 
-		MonoSingleton<SimplifiedDemoImplementation>,
+	public partial class ServerlessDemoImplementation : 
+		MonoSingleton<ServerlessDemoImplementation>,
 		IStoreDemoImplementation
 	{
 		private string CreateAccessData(uint projectId, string transactionId, CatalogItemModel item)
@@ -38,7 +38,7 @@ namespace Xsolla.Demo.SimplifiedIntegration
 				currency = "USD",
 				mode = XsollaSettings.IsSandbox ? "sandbox" : null,
 				external_id = transactionId,
-				xsolla_product_tag = PaymentsHelper.GetAdditionalInformation("simplified"),
+				xsolla_product_tag = PaymentsHelper.GetAdditionalInformation("serverless"),
 				ui = new AccessDataEntity.Settings.UI
 				{
 					size = "medium",
