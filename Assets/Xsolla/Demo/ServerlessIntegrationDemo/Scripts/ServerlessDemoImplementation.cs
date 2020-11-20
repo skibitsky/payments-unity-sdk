@@ -2,10 +2,10 @@ using System;
 using UnityEngine;
 using Xsolla.Core;
 
-namespace Xsolla.Demo.SimplifiedIntegration
+namespace Xsolla.Demo.ServerlessIntegration
 {
-	public partial class SimplifiedDemoImplementation :
-		MonoSingleton<SimplifiedDemoImplementation>,
+	public partial class ServerlessDemoImplementation :
+		MonoSingleton<ServerlessDemoImplementation>,
 		IStoreDemoImplementation
 	{
 		public override void Init()

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Xsolla.Core;
 
-namespace Xsolla.Demo.SimplifiedIntegration
+namespace Xsolla.Demo.ServerlessIntegration
 {
 	public class ExtraController : MonoBehaviour, IExtraPanelController
 	{

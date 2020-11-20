@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Xsolla.Core;
 
-namespace Xsolla.Demo.SimplifiedIntegration
+namespace Xsolla.Demo.ServerlessIntegration
 {
-	public partial class SimplifiedDemoImplementation :
-		MonoSingleton<SimplifiedDemoImplementation>,
+	public partial class ServerlessDemoImplementation :
+		MonoSingleton<ServerlessDemoImplementation>,
 		IStoreDemoImplementation
 	{
 		public void GetInventoryItems(Action<List<InventoryItemModel>> onSuccess, Action<Error> onError = null)
 		{
 			List<InventoryItemModel> inventoryItems =
-				LoadUserData<List<InventoryItemModel>>(SimplifiedDemoConstants.USER_INVENTORY_ITEMS) ??
+				LoadUserData<List<InventoryItemModel>>(ServerlessDemoConstants.USER_INVENTORY_ITEMS) ??
 				new List<InventoryItemModel>();
 			onSuccess?.Invoke(inventoryItems);
 		}
@@ -21,13 +21,13 @@ namespace Xsolla.Demo.SimplifiedIntegration
 			Action<Error> onError = null)
 		{
 			List<VirtualCurrencyBalanceModel> balanceModels =
-				LoadUserData<List<VirtualCurrencyBalanceModel>>(SimplifiedDemoConstants.USER_VIRTUAL_CURRENCY_BALANCE) ??
+				LoadUserData<List<VirtualCurrencyBalanceModel>>(ServerlessDemoConstants.USER_VIRTUAL_CURRENCY_BALANCE) ??
 				new List<VirtualCurrencyBalanceModel>();
 			UserCatalog.Instance.Currencies.ForEach(c =>
 			{
 				if (balanceModels.Exists(b => b.Sku.Equals(c.CurrencySku))) return;
 				balanceModels.Add(GetVirtualBalanceBy(c));
-				SaveUserData(SimplifiedDemoConstants.USER_VIRTUAL_CURRENCY_BALANCE, UserInventory.Instance.Balance);
+				SaveUserData(ServerlessDemoConstants.USER_VIRTUAL_CURRENCY_BALANCE, UserInventory.Instance.Balance);
 			});
 			onSuccess?.Invoke(balanceModels);
 		}
@@ -62,7 +62,7 @@ namespace Xsolla.Demo.SimplifiedIntegration
 			if (UserInventory.Instance.Balance.Count(b => b.Sku.Equals(sku)) <= 0) return;
 			var balance = UserInventory.Instance.Balance.First(b => b.Sku.Equals(sku));
 			balance.Amount += amount;
-			SaveUserData(SimplifiedDemoConstants.USER_VIRTUAL_CURRENCY_BALANCE, UserInventory.Instance.Balance);
+			SaveUserData(ServerlessDemoConstants.USER_VIRTUAL_CURRENCY_BALANCE, UserInventory.Instance.Balance);
 		}
 
 		private void PutVirtualItemToInventory(InventoryItemModel item)
@@ -78,7 +78,7 @@ namespace Xsolla.Demo.SimplifiedIntegration
 			else
 				UserInventory.Instance.Items.Add(item);
 
-			SaveUserData(SimplifiedDemoConstants.USER_INVENTORY_ITEMS, UserInventory.Instance.Items);
+			SaveUserData(ServerlessDemoConstants.USER_INVENTORY_ITEMS, UserInventory.Instance.Items);
 		}
 
 		private void RemoveItemFromInventory(InventoryItemModel item, uint count)
@@ -92,7 +92,7 @@ namespace Xsolla.Demo.SimplifiedIntegration
 					item.RemainingUses -= count;
 			}
 
-			SaveUserData(SimplifiedDemoConstants.USER_INVENTORY_ITEMS, UserInventory.Instance.Items);
+			SaveUserData(ServerlessDemoConstants.USER_INVENTORY_ITEMS, UserInventory.Instance.Items);
 		}
 
 		private InventoryItemModel GetInventoryItemBy(CatalogItemModel item)

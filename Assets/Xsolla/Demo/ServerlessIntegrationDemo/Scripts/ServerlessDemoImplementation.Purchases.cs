@@ -4,10 +4,10 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Xsolla.Core;
 
-namespace Xsolla.Demo.SimplifiedIntegration
+namespace Xsolla.Demo.ServerlessIntegration
 {
-	public partial class SimplifiedDemoImplementation : 
-		MonoSingleton<SimplifiedDemoImplementation>,
+	public partial class ServerlessDemoImplementation : 
+		MonoSingleton<ServerlessDemoImplementation>,
 		IStoreDemoImplementation
 	{
 		private const float LOST_TRANSACTION_NOTIFICATION_TIMEOUT_MIN = 10.0F;
@@ -29,7 +29,7 @@ namespace Xsolla.Demo.SimplifiedIntegration
 			[CanBeNull] Action<Error> onError = null)
 		{
 			var transaction = CreateTransaction(item);
-			var accessData = CreateAccessData(XsollaSettings.SimplifiedProjectId, transaction.transactionId, item);
+			var accessData = CreateAccessData(XsollaSettings.ServerlessProjectId, transaction.transactionId, item);
 
 			Payments.PaymentsHelper.OpenPurchaseByAccessData(accessData, XsollaSettings.IsSandbox);
 			var timeoutCoroutine = FailedTransactionNotification(transaction);
@@ -44,7 +44,7 @@ namespace Xsolla.Demo.SimplifiedIntegration
 		private TransactionCache CreateTransaction(CatalogItemModel item)
 		{
 			var transactionId = Guid.NewGuid().ToString();
-			return TransactionCaching(XsollaSettings.SimplifiedProjectId.ToString(), transactionId, item);
+			return TransactionCaching(XsollaSettings.ServerlessProjectId.ToString(), transactionId, item);
 		}
 
 		private void HandleTransaction(
@@ -146,7 +146,7 @@ namespace Xsolla.Demo.SimplifiedIntegration
 		public void PurchaseForVirtualCurrency(CatalogItemModel item,
 			[CanBeNull] Action<CatalogItemModel> onSuccess = null, [CanBeNull] Action<Error> onError = null)
 		{
-			throw new NotImplementedException("Purchase for virtual currency not implemented in simplified demo.");
+			throw new NotImplementedException("Purchase for virtual currency not implemented in serverless demo.");
 		}
 	}
 }
