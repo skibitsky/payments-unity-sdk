@@ -6,8 +6,8 @@ namespace Xsolla.Demo.ServerlessIntegration
 	public class ExtraPanelInfoButtons : MonoBehaviour
 	{
 		const string URL_REGISTRATION = "https://publisher.xsolla.com/";
-		const string URL_DOCUMENTATION = "https://developers.xsolla.com/sdk/";
-		const string URL_TEST_CARDS = "https://developers.xsolla.com/api/v2/pay-station/#api_payment_ui_test_cards";
+		const string URL_DOCUMENTATION = "https://developers.xsolla.com/sdk/unity/use-serverless-integration/";
+		const string URL_TEST_CARDS = "https://developers.xsolla.com/doc/pay-station/references/test-cards/#pay_station_references_test_cards";
 
 		public event Action<string> OpenUrlEvent;
 
