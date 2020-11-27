@@ -15,7 +15,7 @@ namespace Xsolla.Core
 		private static XsollaSettings _instance;
 
 		[SerializeField] private string playfabTitleId = Constants.DEFAULT_PLAYFAB_TITLE_ID;
-		[SerializeField] private uint simplifiedProjectId = Constants.DEFAULT_SIMPLIFIED_PROJECT_ID;
+		[SerializeField] private uint serverlessProjectId = Constants.DEFAULT_SERVERLESS_PROJECT_ID;
 		[SerializeField] private bool isSandbox = true;
 		[SerializeField] private bool inAppBrowserEnabled = true;
 		[SerializeField] private PaystationTheme paystationTheme = PaystationTheme.Dark;
@@ -30,12 +30,12 @@ namespace Xsolla.Core
 			}
 		}
 
-		public static uint SimplifiedProjectId
+		public static uint ServerlessProjectId
 		{
-			get => Instance.simplifiedProjectId;
+			get => Instance.serverlessProjectId;
 			set
 			{
-				Instance.simplifiedProjectId = value;
+				Instance.serverlessProjectId = value;
 				MarkAssetDirty();
 			}
 		}

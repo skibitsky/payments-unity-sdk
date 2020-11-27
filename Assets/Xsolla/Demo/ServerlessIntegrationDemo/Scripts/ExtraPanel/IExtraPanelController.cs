@@ -1,4 +1,4 @@
-﻿namespace Xsolla.Demo.SimplifiedIntegration
+﻿namespace Xsolla.Demo.ServerlessIntegration
 {
 	public interface IExtraPanelController
 	{

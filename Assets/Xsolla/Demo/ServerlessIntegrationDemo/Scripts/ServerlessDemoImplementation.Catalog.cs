@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Xsolla.Core;
 
-namespace Xsolla.Demo.SimplifiedIntegration
+namespace Xsolla.Demo.ServerlessIntegration
 {
-	public partial class SimplifiedDemoImplementation : 
-		MonoSingleton<SimplifiedDemoImplementation>,
+	public partial class ServerlessDemoImplementation : 
+		MonoSingleton<ServerlessDemoImplementation>,
 		IStoreDemoImplementation
 	{
 		private const string ITEMS_GROUP = "ITEMS";
@@ -14,7 +14,7 @@ namespace Xsolla.Demo.SimplifiedIntegration
 		
 		public void GetCatalogVirtualItems(Action<List<CatalogVirtualItemModel>> onSuccess, Action<Error> onError = null)
 		{
-			Action<List<SimplifiedCatalogItem>> callback = items =>
+			Action<List<ServerlessCatalogItem>> callback = items =>
 			{
 				onSuccess?.Invoke(items.Select(i => new CatalogVirtualItemModel
 				{
@@ -27,14 +27,14 @@ namespace Xsolla.Demo.SimplifiedIntegration
 					IsConsumable = true
 				}).ToList());
 			};
-			SimplifiedUserCatalog.Instance.UpdateItemsEvent += callback;
-			SimplifiedUserCatalog.Instance.UpdateCatalog();
-			SimplifiedUserCatalog.Instance.UpdateItemsEvent -= callback;
+			ServerlessUserCatalog.Instance.UpdateItemsEvent += callback;
+			ServerlessUserCatalog.Instance.UpdateCatalog();
+			ServerlessUserCatalog.Instance.UpdateItemsEvent -= callback;
 		}
 
 		public void GetCatalogVirtualCurrencies(Action<List<CatalogVirtualCurrencyModel>> onSuccess, Action<Error> onError = null)
 		{
-			Action<List<SimplifiedCatalogItem>> callback = items =>
+			Action<List<ServerlessCatalogItem>> callback = items =>
 			{
 				onSuccess?.Invoke(items.Select(i => new CatalogVirtualCurrencyModel
 				{
@@ -49,9 +49,9 @@ namespace Xsolla.Demo.SimplifiedIntegration
 					IsConsumable = true
 				}).ToList());
 			};
-			SimplifiedUserCatalog.Instance.UpdateVirtualCurrenciesEvent += callback;
-			SimplifiedUserCatalog.Instance.UpdateCatalog();
-			SimplifiedUserCatalog.Instance.UpdateVirtualCurrenciesEvent -= callback;
+			ServerlessUserCatalog.Instance.UpdateVirtualCurrenciesEvent += callback;
+			ServerlessUserCatalog.Instance.UpdateCatalog();
+			ServerlessUserCatalog.Instance.UpdateVirtualCurrenciesEvent -= callback;
 		}
 
 		public List<string> GetCatalogGroupsByItem(CatalogItemModel item)

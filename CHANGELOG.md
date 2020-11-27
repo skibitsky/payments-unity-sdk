@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.0.4] - 2020-11-20
+
+### Fixed
+- Documentation links.
+- New assets naming.
+
 ## [1.0.0.3] - 2020-10-28
 
 ### Fixed
