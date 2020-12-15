@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Web;
 using Xsolla.Core;
 using Xsolla.Payments;
 
@@ -17,7 +17,7 @@ namespace Xsolla.Demo.ServerlessIntegration
 			FillPurchaseInfo(accessData, item);
 
 			string json = accessData.SerializeToJson();
-			return HttpUtility.UrlEncode(json);
+			return Uri.EscapeDataString(json);
 		}
 
 		private void FillUserInfo(AccessDataEntity accessData)
